@@ -184,7 +184,9 @@ section.block{padding-block:clamp(72px,10vw,140px)}
 .promo .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--night) 0%,rgba(10,9,9,.75) 45%,rgba(10,9,9,.2) 100%)}
 .promo .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center;width:100%;padding-block:80px}
 .promo p{margin:22px 0 32px}
-.mini-paper{justify-self:end;width:min(340px,100%);background:var(--paper);color:var(--marker);padding:30px 28px 26px;transform:rotate(3deg);box-shadow:0 30px 60px -20px rgba(0,0,0,.8);position:relative}
+.paper-col{justify-self:end;display:grid;justify-items:center;gap:48px;width:min(380px,100%)}
+@media (max-width:820px){.paper-col{justify-self:center}}
+.mini-paper{width:min(340px,100%);background:var(--paper);color:var(--marker);padding:30px 28px 26px;transform:rotate(3deg);box-shadow:0 30px 60px -20px rgba(0,0,0,.8);position:relative}
 .mini-paper::before,.mini-paper::after{content:"";position:absolute;top:-12px;width:90px;height:26px;background:rgba(200,190,170,.75)}
 .mini-paper::before{left:-14px;transform:rotate(-28deg)}
 .mini-paper::after{right:-14px;transform:rotate(26deg)}
@@ -508,11 +510,13 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
         <div class="eyebrow">Tú haces el setlist</div>
         <h2 class="display" id="h-promo" style="font-size:clamp(52px,8vw,112px)">Tú decides<br>qué suena</h2>
         <p class="lead">37 canciones, un solo concierto. Escucha un trozo de cada una, quédate con las que no pueden faltar y saldrán en el repertorio de la gira.</p>
-        <a class="btn btn-lamp" href="#setlist">Hacer mi setlist <span class="arrow">→</span></a>
       </div>
-      <div class="mini-paper" aria-hidden="true">
-        <h4>Setlist · Gira 27</h4>
-        <ol><li>Cientocero</li><li>Ana</li><li>Hermética</li><li>Viento de cara</li><li class="q">¿…?</li><li class="q">¿…?</li></ol>
+      <div class="paper-col">
+        <div class="mini-paper" aria-hidden="true">
+          <h4>Setlist · Gira 27</h4>
+          <ol><li>Cientocero</li><li>Ana</li><li>Hermética</li><li>Viento de cara</li><li class="q">¿…?</li><li class="q">¿…?</li></ol>
+        </div>
+        <a class="btn btn-lamp" href="#setlist">Hacer mi setlist <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -543,7 +547,8 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
   <!-- CONTACTO: avisos + contratación en un solo apartado -->
   <section class="wrap duo-wrap" id="avisos" aria-label="Sigue cerca de Cientocero">
     <div class="duo">
-      <article class="duo-card" id="nl-card">
+      <article class="duo-card duo-photo" id="nl-card">
+        <div class="bg" aria-hidden="true"><img src="img/directo-bn.jpg" alt="" loading="lazy"></div>
         <div class="eyebrow">Primera fila</div>
         <h2 class="display">No te quedes sin entrada</h2>
         <p class="muted">Nuevas fechas, preventas y alguna sorpresa. Te escribimos poco y solo cuando merece la pena.</p>
