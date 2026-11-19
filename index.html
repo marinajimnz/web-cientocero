@@ -84,8 +84,13 @@ h2.display{font-size:clamp(52px,9vw,128px)}
 .drawer{position:fixed;inset:0;z-index:45;background:var(--night);display:flex;flex-direction:column;justify-content:center;gap:8px;
   padding:96px var(--gutter-r) 40px var(--gutter);opacity:0;pointer-events:none;transition:opacity .25s}
 .menu-open .drawer{opacity:1;pointer-events:auto}
-.drawer a.big{font:900 clamp(48px,14vw,84px)/.95 var(--f-display);text-transform:uppercase;text-decoration:none}
-.drawer a.big:hover{color:var(--tungsten)}
+.drawer a.big{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);font:900 clamp(36px,10vw,64px)/1 var(--f-display);text-transform:uppercase;text-decoration:none}
+.drawer .eyebrow{padding-bottom:8px;border-bottom:1px solid var(--line)}
+.drawer a.big::after{content:"→";flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);font:500 18px/1 var(--f-mono);color:var(--tungsten);transition:background .2s,color .2s}
+.drawer a.big:hover,.drawer a.big:active{color:var(--tungsten)}
+.drawer a.big:hover::after,.drawer a.big:active::after{background:var(--tungsten);color:var(--tungsten-ink)}
+html.menu-open,html.menu-open body{overflow:hidden;overscroll-behavior:none}
+.drawer{overflow:hidden;overscroll-behavior:contain;touch-action:none}
 .drawer .social{margin-top:28px;gap:10px}
 .drawer .social a{width:48px;height:48px;color:var(--bone);box-shadow:inset 0 0 0 1px var(--line)}
 .drawer .social svg{width:22px;height:22px}
@@ -348,8 +353,13 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px;margin-top:40px}
 .deck{position:relative;width:min(420px,100%);aspect-ratio:4/5;touch-action:pan-y;user-select:none}
 .card{position:absolute;inset:0;overflow:hidden;background:var(--stage);box-shadow:0 30px 70px -20px rgba(0,0,0,.9),inset 0 0 0 1px var(--line);cursor:grab;will-change:transform;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .3s}
 .card.dragging{transition:none;cursor:grabbing}
-.card.behind{transform:translateY(14px) scale(.95);filter:brightness(.6)}
-.card.behind2{transform:translateY(28px) scale(.9);filter:brightness(.4)}
+.card.behind{transform:translate(16px,8px) rotate(4deg) scale(.96);filter:brightness(.55)}
+.card.behind2{transform:translate(-14px,12px) rotate(-4deg) scale(.93);filter:brightness(.4)}
+.card.nudge{animation:nudge 1.6s cubic-bezier(.4,0,.2,1) .5s 1}
+@keyframes nudge{20%{transform:translateX(-34px) rotate(-5deg)}45%{transform:translateX(34px) rotate(5deg)}70%,100%{transform:none}}
+.h-touch{display:none}
+@media (pointer:coarse){.h-touch{display:inline}.h-keys{display:none}}
+@media (max-width:600px){.deck,.meta-row,.bar{width:min(290px,76vw)}.card h3{font-size:clamp(36px,10vw,48px)}.card .body{left:18px;right:18px;bottom:18px}.stamp{font-size:32px;top:56px}.deck-wrap{gap:18px}.cbtn{width:60px;height:60px}.cbtn.yes{width:72px;height:72px}}
 .card .img{position:absolute;inset:0}
 .card .img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.6)}
 .card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,9,.98) 8%,rgba(10,9,9,.35) 60%,rgba(10,9,9,.1)),var(--tint);mix-blend-mode:normal}
@@ -665,7 +675,7 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
             <button class="cbtn no" id="b-no" type="button" aria-label="No, esta no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
             <button class="cbtn yes" id="b-yes" type="button" aria-label="Sí, que suene"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg></button>
           </div>
-          <div class="hint">Desliza la tarjeta o usa <kbd>←</kbd> <kbd>→</kbd></div>
+          <div class="hint"><span class="h-touch">← Desliza la tarjeta →</span><span class="h-keys">Desliza la tarjeta o usa <kbd>←</kbd> <kbd>→</kbd></span></div>
         </div>
         <aside class="side">
           <div class="eyebrow">Tu setlist provisional</div>
@@ -836,7 +846,7 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
 </footer>
 
 <div class="cookie" id="cookie" role="dialog" aria-labelledby="ck-t" hidden>
-  <h6 id="ck-t">¿Qué cookie vas hoy?</h6>
+  <h6 id="ck-t">¡Qué cookie vas hoy!</h6>
   <p>Usamos cookies propias y de terceros para que la web funcione, medir visitas y enseñarte publicidad acorde a lo que ves. Tú eliges.</p>
   <div class="b"><button class="btn btn-ghost" type="button" data-ck>Rechazar</button><button class="btn btn-lamp" type="button" data-ck>Aceptar</button></div>
 </div>
@@ -972,7 +982,7 @@ function selectText(el){try{var r=document.createRange();r.selectNodeContents(el
 var top=$("#top");
 function onScroll(){ top.classList.toggle("solid", scrollY>40 || current!=="inicio"); }
 addEventListener("scroll",onScroll,{passive:true});
-function setMenu(o){document.body.classList.toggle("menu-open",o);$("#burger").setAttribute("aria-expanded",o);$("#drawer").setAttribute("aria-hidden",!o);}
+function setMenu(o){document.body.classList.toggle("menu-open",o);document.documentElement.classList.toggle("menu-open",o);$("#burger").setAttribute("aria-expanded",o);$("#drawer").setAttribute("aria-hidden",!o);}
 $("#burger").addEventListener("click",function(){setMenu(!document.body.classList.contains("menu-open"))});
 $$("#drawer a").forEach(function(a){a.addEventListener("click",function(){setMenu(false)})});
 
@@ -1026,7 +1036,10 @@ function step(s){
   $$("#steps li").forEach(function(li){var k=li.getAttribute("data-s");li.classList.toggle("on",k===s);li.classList.toggle("ok",seq.indexOf(k)<seq.indexOf(s));});
 }
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-function startVote(){ order=shuffle(SONGS.slice()); idx=0; votes=[]; renderDeck(); renderPicked(); step("vote"); }
+function startVote(){ order=shuffle(SONGS.slice()); idx=0; votes=[]; renderDeck(); renderPicked(); step("vote");
+  // ancla el paso 2: la baraja y los botones quedan enteros bajo la cabecera
+  requestAnimationFrame(function(){ var r=$("#p-vote").getBoundingClientRect(); scrollTo({top:r.top+scrollY-84,behavior:"smooth"}); });
+}
 $("#reg-form").addEventListener("submit",function(e){
   e.preventDefault(); var err="";
   if(!okMail($("#r-mail").value.trim())) err="Escribe un email válido.";
@@ -1056,7 +1069,7 @@ function renderDeck(){
   $("#count").textContent=Math.min(idx+1,order.length)+" / "+order.length;
   $("#bar").style.transform="scaleX("+(idx/order.length)+")";
   $("#b-undo").disabled=!votes.length;
-  var top=$('.card[data-i="'+idx+'"]',deck); if(top) bindDrag(top);
+  var top=$('.card[data-i="'+idx+'"]',deck); if(top){ bindDrag(top); if(idx===0) top.classList.add("nudge"); }
 }
 function renderPicked(){
   var yes=votes.filter(function(v){return v.y});
@@ -1091,7 +1104,7 @@ $("#deck").addEventListener("click",function(e){
 });
 function bindDrag(card){
   var sx=0, dx=0, down=false, id=null;
-  card.addEventListener("pointerdown",function(e){ if(e.target.closest("[data-play]")) return; down=true; sx=e.clientX; dx=0; id=e.pointerId; card.setPointerCapture(id); card.classList.add("dragging"); });
+  card.addEventListener("pointerdown",function(e){ if(e.target.closest("[data-play]")) return; card.classList.remove("nudge"); down=true; sx=e.clientX; dx=0; id=e.pointerId; card.setPointerCapture(id); card.classList.add("dragging"); });
   card.addEventListener("pointermove",function(e){ if(!down) return; dx=e.clientX-sx; card.style.transform="translateX("+dx+"px) rotate("+dx/18+"deg)";
     $(".stamp.yes",card).style.opacity=Math.max(0,Math.min(1,dx/100)); $(".stamp.no",card).style.opacity=Math.max(0,Math.min(1,-dx/100)); });
   function up(){ if(!down) return; down=false; card.classList.remove("dragging");
