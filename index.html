@@ -266,10 +266,16 @@ input,select,textarea{font-size:max(16px,1em)}
 .ph:hover img{filter:grayscale(0) contrast(1.05);transform:scale(1.03)}
 .ph figcaption{position:absolute;left:12px;bottom:10px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(236,228,218,.75)}
 .ph1{aspect-ratio:16/10}.ph2{aspect-ratio:4/3}
-.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:56px;border-top:1px solid var(--line)}
-.facts div{padding:22px 20px 0 0}
-.facts b{display:block;font:900 clamp(44px,6vw,76px)/.9 var(--f-display);font-variant-numeric:tabular-nums}
+/* cifras: banda centrada con el mismo espacio arriba y abajo */
+.facts-band{padding-block:clamp(64px,9vw,120px)}
+section.block:has(+ .facts-band){padding-bottom:0}
+.facts-band + .duo-wrap{padding-top:0}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:900px;margin:0 auto;border-block:1px solid var(--line)}
+.facts div{display:grid;justify-items:center;gap:10px;text-align:center;padding:30px 12px}
+.facts div+div{border-left:1px solid var(--line)}
+.facts b{display:block;font:900 clamp(48px,7vw,88px)/.9 var(--f-display);font-variant-numeric:tabular-nums}
 .facts span{font:500 12px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+@media (max-width:560px){.facts div{padding:22px 6px}.facts span{font-size:11px;letter-spacing:.1em}}
 @media (max-width:820px){
   .revive>*{grid-column:1 / -1 !important}
 }
@@ -335,21 +341,25 @@ fieldset.field{border:0;margin:0;padding:0}
 @media (max-width:560px){.form{grid-template-columns:1fr}.seg{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* ---------- footer ---------- */
-footer{border-top:1px solid var(--line);padding-block:56px 40px;margin-top:40px}
-.foot{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:32px}
-.foot-brand{display:inline-flex;align-items:center;gap:clamp(16px,2vw,28px);text-decoration:none;margin:0 0 56px;max-width:100%}
+footer{border-top:1px solid var(--line);padding-block:clamp(56px,8vw,96px) 40px}
+.foot{display:grid;justify-items:center;text-align:center;gap:36px}
+.foot-brand{display:inline-flex;align-items:center;gap:clamp(16px,2vw,28px);text-decoration:none;text-align:left;max-width:100%}
 .foot-brand img{width:clamp(64px,8vw,104px);height:auto;flex:none}
 .foot-brand b{display:block;font:900 clamp(44px,8vw,112px)/.85 var(--f-display);text-transform:uppercase;letter-spacing:.04em;color:var(--bone)}
 .foot-brand small{display:block;margin-top:10px;font:500 12px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+.foot-social{gap:12px}
+.foot-social a{width:48px;height:48px;color:var(--bone);box-shadow:inset 0 0 0 1px var(--line)}
+.foot-social a:hover{color:var(--tungsten-ink);background:var(--tungsten);box-shadow:none}
+.foot-social svg{width:22px;height:22px}
 .foot h5{margin:0 0 14px;font:500 11px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--smoke)}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.foot a{text-decoration:none;color:var(--bone)}
-.foot a:hover{color:var(--tungsten)}
-.partners{display:flex;gap:22px;align-items:center}
-.partners img{height:54px;width:auto;opacity:.75;filter:grayscale(1)}
+.partners{display:flex;gap:28px;align-items:center;justify-content:center}
+.partners img{height:58px;width:auto;opacity:.8;filter:grayscale(1)}
 .partners img:hover{opacity:1;filter:none}
-.legal-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--smoke)}
-@media (max-width:860px){.foot{grid-template-columns:repeat(2,minmax(0,1fr))}.foot>div:first-child{grid-column:1 / -1}}
+.foot-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;padding-top:28px;border-top:1px solid var(--line);width:100%}
+.foot-legal a{font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bone);text-decoration:none;padding:6px 0}
+.foot-legal a:hover{color:var(--tungsten)}
+.foot-small{margin:-16px 0 0;font-size:13px;color:var(--smoke);max-width:40em}
+@media (max-width:720px){.foot-brand{flex-direction:column;text-align:center;gap:14px}.foot-brand small{letter-spacing:.16em}}
 
 /* ---------- cookies ---------- */
 .cookie{position:fixed;z-index:70;left:max(16px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));width:min(380px,calc(100% - 32px));
@@ -613,7 +623,12 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
           <p class="muted" style="margin:0">De <em>Realimentación</em> a <em>Viento de cara</em>: un repaso a toda la discografía, con los himnos que todo el mundo espera y alguna que hacía años que nadie tocaba.</p>
         </div>
       </div>
-      <div class="facts">
+    </div>
+  </section>
+
+  <!-- CIFRAS -->
+  <section class="facts-band" aria-label="La gira en cifras">
+    <div class="wrap"><div class="facts">
         <div><b data-count>22</b><span>Fechas en 2027</span></div>
         <div><b>37</b><span>Canciones en juego</span></div>
         <div><b>5</b><span>Meses de gira</span></div>
@@ -888,21 +903,22 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  <div class="wrap">
+  <div class="wrap foot">
     <a class="foot-brand" href="#inicio" aria-label="Cientocero, volver al inicio"><img src="img/logo.png" alt=""><span><b>Cientocero</b><small>Tributo a Supersubmarina</small></span></a>
-    <div class="foot">
-      <div>
-        <h5>Una producción de</h5>
-        <div class="partners">
-          <a href="https://crashmusic.es" target="_blank" rel="noopener"><img src="img/crash.png" alt="Crash Music"></a>
-          <a href="https://carverespectaculos.com" target="_blank" rel="noopener"><img src="img/carver.png" alt="Carver Espectáculos"></a>
-        </div>
-      </div>
-      <div><h5>Web</h5><ul><li><a href="#conciertos">Conciertos</a></li><li><a href="#setlist">Tú haces el setlist</a></li><li><a href="#contratacion">Contratación</a></li></ul></div>
-      <div><h5>Síguenos</h5><ul><li><a href="https://www.instagram.com/cientocero_oficial/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/cientocerooficial/" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.youtube.com/@CIENTOCERO_OFICIAL" target="_blank" rel="noopener">YouTube</a></li></ul></div>
-      <div><h5>Legal</h5><ul><li><a href="#aviso-legal">Aviso legal</a></li><li><a href="#privacidad">Política de privacidad</a></li><li><a href="#" id="open-cookies">Cookies</a></li></ul></div>
+    <div class="social foot-social" aria-label="Redes sociales">
+      <a href="https://www.instagram.com/cientocero_oficial/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2A3.2 3.2 0 1 1 12 8.8a3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM21.9 7.1c-.1-1.6-.4-3-1.6-4.2S17.6 1.3 16 1.2C14.4 1.1 9.6 1.1 8 1.2c-1.6.1-3 .4-4.2 1.6S2.2 5.5 2.1 7.1C2 8.7 2 13.4 2.1 15c.1 1.6.4 3 1.6 4.2s2.6 1.5 4.2 1.6c1.6.1 6.4.1 8 0 1.6-.1 3-.4 4.2-1.6s1.5-2.6 1.6-4.2c.1-1.6.1-6.3 0-7.9zm-2 9.6a3.3 3.3 0 0 1-1.8 1.8c-1.3.5-4.3.4-5.7.4s-4.4.1-5.7-.4A3.3 3.3 0 0 1 4.9 16.7c-.5-1.3-.4-4.3-.4-5.7s-.1-4.4.4-5.7a3.3 3.3 0 0 1 1.8-1.8c1.3-.5 4.3-.4 5.7-.4s4.4-.1 5.7.4a3.3 3.3 0 0 1 1.8 1.8c.5 1.3.4 4.3.4 5.7s.1 4.4-.4 5.7z"/></svg></a>
+      <a href="https://www.facebook.com/cientocerooficial/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8.5V6.6c0-.9.6-1.1 1-1.1h2.5V1.6L14 1.5c-3.8 0-4.6 2.8-4.6 4.6v2.4H7v4h2.4V22.5H14V12.5h3.1l.4-4H14z"/></svg></a>
+      <a href="https://www.youtube.com/@CIENTOCERO_OFICIAL" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15V9l5.8 3-5.8 3z"/></svg></a>
     </div>
-    <div class="legal-row"><span>© 2026 Producciones Musicales Cientocero S.L.</span><span>Tributo a Supersubmarina. Cientocero no está vinculado a la banda original.</span></div>
+    <div class="foot-partners">
+      <h5>Una producción de</h5>
+      <div class="partners">
+        <a href="https://crashmusic.es" target="_blank" rel="noopener"><img src="img/crash.png" alt="Crash Music"></a>
+        <a href="https://carverespectaculos.com" target="_blank" rel="noopener"><img src="img/carver.png" alt="Carver Espectáculos"></a>
+      </div>
+    </div>
+    <nav class="foot-legal" aria-label="Legal"><a href="#aviso-legal">Aviso legal</a><a href="#privacidad">Política de privacidad</a><a href="#" id="open-cookies">Cookies</a></nav>
+    <p class="foot-small">© 2026 Producciones Musicales Cientocero S.L. · Tributo a Supersubmarina, sin vínculo con la banda original.</p>
   </div>
 </footer>
 
