@@ -6,8 +6,9 @@ Es una sola página HTML (`index.html`) con cuatro vistas:
 
 | Vista | Dirección |
 | --- | --- |
-| Home: gira 2027, setlist, la experiencia, avisos y contratación | `index.html#inicio` |
+| Home: gira 2027, setlist, la experiencia, avisos y acceso a contratación | `index.html#inicio` |
 | Tú haces el setlist | `index.html#setlist` |
+| Contratación | `index.html#contratacion` |
 | Aviso legal | `index.html#aviso-legal` |
 | Política de privacidad | `index.html#privacidad` |
 
