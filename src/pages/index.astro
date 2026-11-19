@@ -1,0 +1,214 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+import { upcoming, showsHTML, nextShowHTML, tickerHTML } from '../lib/shows';
+import canciones from '../data/canciones.json';
+import grupo from '../assets/img/grupo.jpg';
+import escenario from '../assets/img/escenario.jpg';
+import directo from '../assets/img/directo-bn.jpg';
+import voz from '../assets/img/voz.jpg';
+
+// Lista tal como está el día que se construye la web; en el navegador se recalcula con la fecha real.
+const shows = upcoming();
+const next = shows[0];
+const FIRST = 5;
+const meses = new Set(shows.map((s) => `${s.d.getFullYear()}-${s.d.getMonth()}`)).size;
+---
+<Base page="inicio" title="Cientocero · Tributo a Supersubmarina · Gira 2027" description="Revive la experiencia Supersubmarina con Cientocero. Gira 2027: fechas, entradas, Tú haces el setlist y contratación.">
+  <section class="hero" aria-labelledby="h-hero">
+    <div class="bg"><Image src={grupo} alt="Los cinco miembros de Cientocero posando al atardecer" widths={[800, 1400, 1920]} sizes="100vw" loading="eager" fetchpriority="high" /></div>
+    <div class="wrap">
+      <div class="hero-kicker"><span class="dot" aria-hidden="true"></span><span class="eyebrow" style="color:var(--bone)">Gira 2027 · <span data-count>{shows.length}</span> ciudades</span><span class="eyebrow">Tributo a Supersubmarina</span></div>
+      <h1 class="display" id="h-hero"><span class="ln sm"><span>Revive la experiencia</span></span><span class="ln"><span>Cientocero</span></span></h1>
+      <div class="hero-sub">
+        <p>Las canciones de Supersubmarina, tocadas como se merecen: <b>alto, en directo y con la sala cantando cada estribillo.</b> Volvemos a la carretera de enero a mayo.</p>
+        {next && <a class="nextshow" id="nextshow" href={next.url} target="_blank" rel="noopener" set:html={nextShowHTML(next)} />}
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div class="track" id="ticker" set:html={tickerHTML(shows)} /></div>
+
+  <!-- CONCIERTOS -->
+  <section class="block" id="conciertos" aria-labelledby="h-conc">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <div class="eyebrow">Próximos conciertos</div>
+          <h2 class="display" id="h-conc">Gira 2027</h2>
+        </div>
+        <p class="muted" style="margin:0;max-width:26em">Elige tu ciudad y consigue la entrada antes de que vuele. Iremos sumando fechas: si tu ciudad no está, apúntate abajo y te avisamos primero.</p>
+      </div>
+      <div class="filters" role="toolbar" aria-label="Filtrar conciertos">
+        <div class="fwrap">
+          <button type="button" class="chip fbtn" id="f-btn" aria-expanded="false" aria-controls="f-pop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg><span id="f-label">Filtrar</span></button>
+          <button type="button" class="fclear" id="f-clear" aria-label="Quitar filtro" hidden>×</button>
+          <div class="fpop" id="f-pop" hidden><span class="eyebrow">Mes</span><div id="chips"></div></div>
+        </div>
+        <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="sr">Buscar ciudad o sala</span><input id="q" type="search" placeholder="Busca tu ciudad o sala" autocomplete="off"></label>
+      </div>
+      <ol class="shows" id="shows" set:html={showsHTML(shows.slice(0, FIRST), next)} />
+      <div class="more-wrap"><button class="btn btn-lamp" id="more" type="button" hidden={shows.length <= FIRST}>Más conciertos <sup>{shows.length - FIRST}</sup> <span class="arrow">↓</span></button></div>
+      <div class="shows-foot">
+        <span class="eyebrow">+ Más fechas por confirmar</span>
+        <a class="btn btn-ghost" href={url('#avisos')}>Avísame de nuevas fechas <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO SETLIST -->
+  <section class="promo" aria-labelledby="h-promo">
+    <div class="bg"><Image src={escenario} alt="" widths={[800, 1600]} sizes="100vw" /></div>
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Tú haces el setlist</div>
+        <h2 class="display" id="h-promo" style="font-size:clamp(52px,8vw,112px)">Tú decides<br>qué suena</h2>
+        <p class="lead">{canciones.length} canciones, un solo concierto. Escucha un trozo de cada una, quédate con las que no pueden faltar y saldrán en el repertorio de la gira.</p>
+      </div>
+      <div class="paper-col">
+        <div class="mini-paper" aria-hidden="true">
+          <h4>Setlist · Gira 27</h4>
+          <ol><li>Cientocero</li><li>Ana</li><li>Hermética</li><li>Viento de cara</li><li class="q">¿…?</li><li class="q">¿…?</li></ol>
+        </div>
+        <a class="btn btn-lamp" href={url('setlist')}>Hacer mi setlist <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LA EXPERIENCIA -->
+  <section class="block" aria-labelledby="h-rev">
+    <div class="wrap">
+      <div class="revive">
+        <div class="t">
+          <div class="eyebrow">La experiencia</div>
+          <h2 class="display" id="h-rev" style="font-size:clamp(48px,7vw,100px)">Como aquella noche, otra vez</h2>
+          <p class="lead">Cinco músicos de Jaén y alrededores, una banda que nos cambió la adolescencia y un objetivo: que vuelvas a vivir un concierto de Supersubmarina. Mismo sonido, mismas guitarras, y el público poniendo el resto.</p>
+        </div>
+        <figure class="ph ph1"><Image src={directo} alt="Cientocero en directo, de espaldas al público, con los focos encendidos" widths={[600, 1000]} sizes="(max-width: 820px) 100vw, 50vw" /><figcaption>En directo</figcaption></figure>
+        <figure class="ph ph2"><Image src={voz} alt="El cantante de Cientocero con guitarra en el escenario" widths={[600, 1000]} sizes="(max-width: 820px) 100vw, 42vw" /><figcaption>© Óscar Lugo · Cooltural</figcaption></figure>
+        <div class="t2">
+          <p class="muted" style="margin:0">De <em>Realimentación</em> a <em>Viento de cara</em>: un repaso a toda la discografía, con los himnos que todo el mundo espera y alguna que hacía años que nadie tocaba.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIFRAS -->
+  <section class="facts-band" aria-label="La gira en cifras">
+    <div class="wrap"><div class="facts">
+      <div><b data-count>{shows.length}</b><span>Fechas en 2027</span></div>
+      <div><b>{canciones.length}</b><span>Canciones en juego</span></div>
+      <div><b>{meses}</b><span>Meses de gira</span></div>
+    </div></div>
+  </section>
+
+  <!-- AVISOS + CONTRATACIÓN -->
+  <section class="wrap duo-wrap" id="avisos" aria-label="Sigue cerca de Cientocero">
+    <div class="duo">
+      <article class="duo-card duo-photo" id="nl-card">
+        <div class="bg" aria-hidden="true"><Image src={directo} alt="" widths={[600, 1000]} sizes="(max-width: 820px) 100vw, 50vw" /></div>
+        <div class="eyebrow">Primera fila</div>
+        <h2 class="display">No te quedes sin entrada</h2>
+        <p class="muted">Nuevas fechas, preventas y alguna sorpresa. Te escribimos poco y solo cuando merece la pena.</p>
+        <div id="nl-box" class="duo-act">
+          <button class="btn btn-lamp" type="button" id="nl-open" aria-expanded="false" aria-controls="nl-form">Apuntarme a la lista <span class="arrow">→</span></button>
+          <form id="nl-form" novalidate hidden>
+            <label class="sr" for="nl-name">Nombre</label><input id="nl-name" placeholder="Tu nombre" autocomplete="given-name">
+            <label class="sr" for="nl-mail">Correo electrónico</label><input id="nl-mail" type="email" placeholder="tu@correo.com" autocomplete="email" required>
+            <p class="fine">Al apuntarte aceptas la <a href={url('privacidad')}>política de privacidad</a>. <span class="err" id="nl-err"></span></p>
+            <button class="btn btn-lamp" type="submit">Apuntarme <span class="arrow">→</span></button>
+          </form>
+        </div>
+      </article>
+      <article class="duo-card duo-photo">
+        <div class="bg" aria-hidden="true"><Image src={escenario} alt="" widths={[600, 1000]} sizes="(max-width: 820px) 100vw, 50vw" /></div>
+        <div class="eyebrow">Contratación</div>
+        <h2 class="display">Llévanos a tu escenario</h2>
+        <p class="muted">Salas, festivales, fiestas patronales o un evento privado. Cuéntanos qué tienes en mente.</p>
+        <div class="duo-act"><a class="btn btn-ghost" href={url('contratacion')}>Pedir presupuesto <span class="arrow">→</span></a></div>
+      </article>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { $, $$, esc, okMail } from '../lib/dom';
+  import { upcoming, showsHTML, nextShowHTML, tickerHTML, monthKey, MESL } from '../lib/shows';
+
+  /* ---------- conciertos: se recalculan con la fecha de hoy ---------- */
+  const shows = upcoming();
+  const next = shows[0];
+  $$('[data-count]').forEach((el) => (el.textContent = String(shows.length)));
+  const nextEl = $<HTMLAnchorElement>('#nextshow');
+  if (nextEl) {
+    if (next) { nextEl.href = next.url; nextEl.innerHTML = nextShowHTML(next); } else nextEl.remove();
+  }
+  $('#ticker')!.innerHTML = tickerHTML(shows);
+
+  const FIRST = 5;
+  let month = 'all';
+  let expanded = false;
+  const months = [...new Set(shows.map(monthKey))];
+  const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  function renderChips() {
+    const chip = (k: string, label: string, n: number) =>
+      `<button type="button" class="chip" data-m="${k}" aria-pressed="${month === k}">${label} <sup>${n}</sup></button>`;
+    $('#chips')!.innerHTML = chip('all', 'Todas', shows.length)
+      + months.map((k) => chip(k, MESL[+k.split('-')[1]], shows.filter((s) => monthKey(s) === k).length)).join('');
+  }
+  function renderShows() {
+    const q = norm(($<HTMLInputElement>('#q')!).value.trim());
+    let list = shows.filter((s) => (month === 'all' || monthKey(s) === month) && (!q || norm(`${s.city} ${s.venue} ${s.prov}`).includes(q)));
+    // sin filtro ni búsqueda: solo los 5 más próximos; el resto con "Más conciertos"
+    const canFold = month === 'all' && !q && list.length > FIRST;
+    const hidden = canFold && !expanded ? list.length - FIRST : 0;
+    if (hidden) list = list.slice(0, FIRST);
+    const more = $('#more')!;
+    more.hidden = !canFold;
+    more.classList.toggle('btn-lamp', !expanded);
+    more.classList.toggle('btn-ghost', expanded);
+    more.innerHTML = expanded ? 'Ver menos <span class="arrow">↑</span>' : `Más conciertos <sup>${hidden}</sup> <span class="arrow">↓</span>`;
+    $('#shows')!.innerHTML = showsHTML(list, next);
+  }
+  function setPop(open: boolean) { $('#f-pop')!.hidden = !open; $('#f-btn')!.setAttribute('aria-expanded', String(open)); }
+  function setFilter(m: string) {
+    month = m; renderChips(); renderShows(); setPop(false);
+    const on = month !== 'all';
+    $('#f-label')!.textContent = on ? `Filtrar · ${MESL[+month.split('-')[1]]}` : 'Filtrar';
+    $('#f-btn')!.classList.toggle('on', on);
+    $('#f-clear')!.hidden = !on;
+  }
+  $('#f-btn')!.addEventListener('click', (e) => { e.stopPropagation(); setPop($('#f-pop')!.hidden); });
+  $('#f-clear')!.addEventListener('click', () => setFilter('all'));
+  $('#chips')!.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest('.chip'); if (b) setFilter(b.getAttribute('data-m')!);
+  });
+  document.addEventListener('click', (e) => { if (!(e.target as Element).closest('.fwrap')) setPop(false); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') setPop(false); });
+  $('#more')!.addEventListener('click', () => {
+    expanded = !expanded; renderShows();
+    if (!expanded) document.getElementById('conciertos')!.scrollIntoView({ behavior: 'smooth' });
+  });
+  $('#q')!.addEventListener('input', renderShows);
+  renderChips(); renderShows();
+
+  /* ---------- avisos ---------- */
+  function openNl() {
+    $('#nl-open')!.hidden = true;
+    $('#nl-open')!.setAttribute('aria-expanded', 'true');
+    $('#nl-form')!.hidden = false;
+    $<HTMLInputElement>('#nl-name')!.focus({ preventScroll: true });
+  }
+  $('#nl-open')!.addEventListener('click', openNl);
+  // al llegar a #avisos (desde "Avísame de nuevas fechas") el formulario ya está abierto
+  addEventListener('cc:arrived', (e) => { if ((e as CustomEvent).detail === '#avisos') setTimeout(openNl, 60); });
+  $('#nl-form')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const mail = $<HTMLInputElement>('#nl-mail')!;
+    if (!okMail(mail.value.trim())) { $('#nl-err')!.textContent = 'Revisa el correo: falta algo.'; mail.focus(); return; }
+    const n = $<HTMLInputElement>('#nl-name')!.value.trim();
+    $('#nl-box')!.innerHTML = `<div class="done">${n ? `${esc(n)}, ya` : 'Ya'} estás en primera fila. Te avisaremos de las nuevas fechas.</div>`;
+  });
+</script>

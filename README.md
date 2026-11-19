@@ -1,40 +1,60 @@
 # Cientocero · web
 
-Maqueta navegable del rediseño de [cientocero.es](https://cientocero.es), tributo a Supersubmarina.
+Rediseño de [cientocero.es](https://cientocero.es), tributo a Supersubmarina, hecho con [Astro](https://astro.build).
 
-Es una sola página HTML (`index.html`) con cuatro vistas:
+Publicada en **https://marinajimnz.github.io/web-cientocero/**
 
-| Vista | Dirección |
-| --- | --- |
-| Home: gira 2027, setlist, la experiencia, avisos y acceso a contratación | `index.html#inicio` |
-| Tú haces el setlist | `index.html#setlist` |
-| Contratación | `index.html#contratacion` |
-| Aviso legal | `index.html#aviso-legal` |
-| Política de privacidad | `index.html#privacidad` |
+| Página | Dirección | Archivo |
+| --- | --- | --- |
+| Inicio: gira, setlist, la experiencia, cifras, avisos | `/` | `src/pages/index.astro` |
+| Tú haces el setlist | `/setlist` | `src/pages/setlist.astro` |
+| Contratación | `/contratacion` | `src/pages/contratacion.astro` |
+| Aviso legal | `/aviso-legal` | `src/pages/aviso-legal.astro` |
+| Política de privacidad | `/privacidad` | `src/pages/privacidad.astro` |
 
-## Verla en local
+## Cambiar contenido sin tocar el diseño
 
-Abre `index.html` en el navegador, o sirve la carpeta:
+- **Conciertos:** `src/data/conciertos.json`. Cada concierto es un bloque como este:
+
+  ```json
+  {
+    "fecha": "2027-05-22",
+    "ciudad": "Murcia",
+    "sala": "Sala REM",
+    "entradas": "https://enlace-de-entradas",
+    "provincia": "",
+    "estado": ""
+  }
+  ```
+
+  `estado` puede ser `"ultimas"` (botón destacado "Últimas entradas") o `"agotado"`. Las fechas pasadas se ocultan solas; el contador de ciudades, los meses del filtro, el próximo concierto y la cinta de ciudades se actualizan solos.
+
+- **Canciones del setlist:** `src/data/canciones.json`. `youtube` es el código del vídeo y `inicio` el segundo donde empiezan los 20 s que suenan (para que caiga en el estribillo).
+- **Textos legales:** `src/data/legal/aviso-legal.html` y `src/data/legal/privacidad.html`. El índice lateral se genera solo con cada `<h2>`.
+- **Fotos:** `src/assets/img/`. Astro las convierte a WebP y genera varios tamaños al publicar.
+- **Estilos:** `src/styles/global.css`. Los colores están arriba del todo como variables (`--tungsten` es el rojo).
+
+## Trabajar en local
+
+Necesita Node 22.23 o superior (probado con Node 26).
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-## Añadir conciertos
+Abre http://localhost:4321/web-cientocero/
 
-Las fechas están en la lista `SHOWS` dentro de `index.html`. Cada línea es un concierto:
+## Publicar
 
-```js
-["2027-05-22","Murcia","Sala REM","https://enlace-de-entradas", "Provincia opcional", "estado opcional"]
-```
+Cada cambio que se sube a la rama `main` se publica solo en GitHub Pages (`.github/workflows/deploy.yml`), en uno o dos minutos.
 
-El estado puede ser `"ultimas"` (botón destacado "Últimas entradas") o `"agotado"`. Las fechas pasadas se ocultan solas, y los filtros por mes y el contador de ciudades se actualizan solos.
+Si la web pasa a su propio dominio (por ejemplo `cientocero.es`), en `astro.config.mjs` cambia `site` por ese dominio y quita `base`.
 
-## Lo que es solo de maqueta
+## Lo que todavía es de maqueta
 
-- Los formularios (avisos, contratación y registro del setlist) muestran la confirmación, pero no envían datos.
-- En el setlist, cada canción suena 20 s desde YouTube, con un reproductor oculto. Los vídeos y los segundos de inicio están en la lista `SONGS` de `index.html` (son los mismos que usa hoy cientocero.es/setlist). Para mover un fragmento al estribillo, cambia el último número de su línea.
-- El ranking "Lo más pedido" usa datos de ejemplo.
+- Los formularios (avisos, contratación y registro del setlist) muestran la confirmación pero no envían datos. Para la web real hay que conectarlos a un servicio (el WordPress actual, Mailchimp, un servicio de formularios…).
+- Los votos del setlist no se guardan y el ranking "Lo más pedido" usa datos de ejemplo.
 - El enlace "Saltar registro" del setlist es para enseñar la maqueta rápido.
 
-Las fotos y los logos vienen de la web actual de Cientocero. Las fotos `escenario.jpg` y `voz.jpg` son © Óscar Lugo · Cooltural.
+Fotos y logos: web actual de Cientocero. `escenario.jpg` y `voz.jpg` © Óscar Lugo · Cooltural.

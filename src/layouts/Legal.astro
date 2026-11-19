@@ -1,0 +1,25 @@
+---
+import Base from './Base.astro';
+
+interface Props { title: string; description: string; html: string }
+const { title, description, html } = Astro.props;
+
+// Índice lateral: un enlace por cada apartado (cada <h2> del texto)
+const toc: { id: string; text: string }[] = [];
+const body = html.replace(/<h2>(.*?)<\/h2>/g, (_m, text: string) => {
+  const id = `ap-${toc.length + 1}`;
+  toc.push({ id, text });
+  return `<h2 id="${id}">${text}</h2>`;
+});
+---
+<Base page="legal" title={`${title} · Cientocero`} description={description}>
+  <section class="legal"><div class="wrap">
+    <h1 class="display">{title}</h1>
+    <div class="legal-grid">
+      <nav class="toc" aria-label="Apartados">
+        {toc.map((t) => <a href={`#${t.id}`} data-jump set:html={t.text} />)}
+      </nav>
+      <article class="prose" set:html={body} />
+    </div>
+  </div></section>
+</Base>

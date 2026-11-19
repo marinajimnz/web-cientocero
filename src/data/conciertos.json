@@ -1,0 +1,178 @@
+[
+  {
+    "fecha": "2027-01-08",
+    "ciudad": "Salamanca",
+    "sala": "Sala Camelot",
+    "entradas": "https://entradas.crashmusic.es/event/concierto-cientocero-tributo-supersubmarina-salamanca-camelot-club-viernes-8-de-enero",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-01-09",
+    "ciudad": "Toledo",
+    "sala": "Círculo de Arte",
+    "entradas": "https://entradas.crashmusic.es/event/concierto-cientocero-tributo-supersubmarina-toledo-sala-circulo-de-arte-sabado-9-de-enero",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-01-15",
+    "ciudad": "La Eliana",
+    "sala": "Sala Fantāstic",
+    "entradas": "https://entradas.cientocero.es/CIENTOCERO/fantastic-2027/",
+    "provincia": "Valencia",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-01-16",
+    "ciudad": "Bilbao",
+    "sala": "Sala Azkena",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-bilbao-sala-azkena-sabado-16-454511",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-01-22",
+    "ciudad": "Zaragoza",
+    "sala": "Sala López",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-zaragoza-sala-lopez-sabado-7-658147",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-01-23",
+    "ciudad": "Valladolid",
+    "sala": "Sala Porta Caeli",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-valladolid-sala-porta-caeli-s-456150",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-01-30",
+    "ciudad": "Málaga",
+    "sala": "Pop & Roll Circus",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-malaga-sala-circus-sabado-30-320036",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-02-05",
+    "ciudad": "Albacete",
+    "sala": "Sala Clandestino",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-albacete-sala-clandestino-vie-164155",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-02-06",
+    "ciudad": "Jaén",
+    "sala": "Sala La32",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-jaen-sala-la-32-sabado-6-de-f-566981",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-02-19",
+    "ciudad": "Granada",
+    "sala": "Sala Aliatar",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-granada-sala-aliatar-viernes-289492",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-02-20",
+    "ciudad": "Almería",
+    "sala": "Sala Berlín",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-almeria-sala-berlin-social-cl-523748",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-03-05",
+    "ciudad": "León",
+    "sala": "Espacio Vías",
+    "entradas": "https://www.ctickets.es/eventos/artisticket/9402-entradas-cientocero-tributo-a-supersubmarina",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-03-06",
+    "ciudad": "Arévalo",
+    "sala": "Sala El Desván",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-arevalo-sala-el-desvan-sabado-175290",
+    "provincia": "Ávila",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-03-12",
+    "ciudad": "Badajoz",
+    "sala": "Sala Off Cultura",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-badajoz-off-cultura-viernes-1-343085",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-03-13",
+    "ciudad": "Jerez",
+    "sala": "Sala La Bodega Skate",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-jerez-de-la-frontera-la-bodeg-824522",
+    "provincia": "Cádiz",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-03-18",
+    "ciudad": "Barcelona",
+    "sala": "Sala La Nau",
+    "entradas": "https://tickets.oneboxtds.com/farotickets/select/3068617?hl=es-ES",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-04-16",
+    "ciudad": "Alicante",
+    "sala": "Sala Stereo",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-alicante-sala-stereo-viernes-697982",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-04-17",
+    "ciudad": "Valencia",
+    "sala": "Sala Jerusalem",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-valencia-sala-jerusalem-sabad-803947",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-05-08",
+    "ciudad": "Madrid",
+    "sala": "Sala Mon",
+    "entradas": "https://ticketfever.es/events/cientocero-tributo-a-supersubmarina",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-05-14",
+    "ciudad": "Oviedo",
+    "sala": "Sala Tribeca Live",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-oviedo-sala-tribeca-live-vier-659837",
+    "provincia": "",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-05-15",
+    "ciudad": "Santiago",
+    "sala": "Sala Capitol",
+    "entradas": "https://salacapitol.entradas.plus/entradas/cientocero-capitol",
+    "provincia": "A Coruña",
+    "estado": ""
+  },
+  {
+    "fecha": "2027-05-22",
+    "ciudad": "Murcia",
+    "sala": "Sala REM",
+    "entradas": "https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-murcia-sala-rem-sabado-22-de-989085",
+    "provincia": "",
+    "estado": ""
+  }
+]

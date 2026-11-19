@@ -1,0 +1,178 @@
+---
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import Social from '../components/Social.astro';
+import logo from '../assets/img/logo.png';
+import crash from '../assets/img/crash.png';
+import carver from '../assets/img/carver.png';
+import { url } from '../lib/url';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Página activa en el menú: inicio, setlist, contratacion, legal */
+  page: 'inicio' | 'setlist' | 'contratacion' | 'legal';
+}
+const { title, description, page } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonical}>
+  <link rel="icon" type="image/png" href={url('favicon.png')}>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:locale" content="es_ES">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Display:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Permanent+Marker&display=swap">
+  <!-- el vinilo tapa la página hasta que carga -->
+  <script is:inline>document.documentElement.classList.add("is-loading");</script>
+</head>
+<body data-page={page}>
+
+<div class="loader" id="loader" role="status" aria-label="Cargando Cientocero">
+  <div class="vinyl" aria-hidden="true"><div class="label"><Image src={logo} alt="" width={120} /></div></div>
+  <p>Cientocero</p>
+</div>
+
+<header class:list={['top', page !== 'inicio' && 'solid']} id="top">
+  <div class="wrap">
+    <a class="brand" href={url()} aria-label="Cientocero, inicio"><Image src={logo} alt="" width={68} /><span>Cientocero</span></a>
+    <nav class="nav" aria-label="Principal">
+      <a href={url('#conciertos')} data-nav="conciertos">Conciertos</a>
+      <a href={url('setlist')} aria-current={page === 'setlist' ? 'page' : undefined}>Tú haces el setlist</a>
+      <a href={url('contratacion')} aria-current={page === 'contratacion' ? 'page' : undefined}>Contratación</a>
+    </nav>
+    <Social />
+    <a class="btn btn-lamp" href={url('#conciertos')}>Entradas</a>
+    <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" id="burger"><i></i><i></i><i></i></button>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <span class="eyebrow">Menú</span>
+  <a class="big" href={url('#conciertos')}>Conciertos</a>
+  <a class="big" href={url('setlist')}>Tú haces el setlist</a>
+  <a class="big" href={url('contratacion')}>Contratación</a>
+  <a class="btn btn-lamp" href={url('#conciertos')} style="justify-self:start;width:max-content;margin-top:24px">Comprar entradas</a>
+  <Social />
+</div>
+
+<main>
+  <slot />
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="foot-brand" href={url()} aria-label="Cientocero, volver al inicio"><Image src={logo} alt="" width={208} /><span><b>Cientocero</b><small>Tributo a Supersubmarina</small></span></a>
+    <Social class="foot-social" />
+    <div class="foot-partners">
+      <h5>Una producción de</h5>
+      <div class="partners">
+        <a href="https://crashmusic.es" target="_blank" rel="noopener"><Image src={crash} alt="Crash Music" height={116} /></a>
+        <a href="https://carverespectaculos.com" target="_blank" rel="noopener"><Image src={carver} alt="Carver Espectáculos" height={116} /></a>
+      </div>
+    </div>
+    <nav class="foot-legal" aria-label="Legal"><a href={url('aviso-legal')}>Aviso legal</a><a href={url('privacidad')}>Política de privacidad</a><a href="#" id="open-cookies">Cookies</a></nav>
+    <p class="foot-small">© 2026 Producciones Musicales Cientocero S.L. · Tributo a Supersubmarina, sin vínculo con la banda original.</p>
+  </div>
+</footer>
+
+<div class="cookie" id="cookie" role="dialog" aria-labelledby="ck-t" hidden>
+  <h6 id="ck-t">¡Qué cookie vas hoy!</h6>
+  <p>Usamos cookies propias y de terceros para que la web funcione, medir visitas y enseñarte publicidad acorde a lo que ves. Tú eliges.</p>
+  <div class="b"><button class="btn btn-ghost" type="button" data-ck>Rechazar</button><button class="btn btn-lamp" type="button" data-ck>Aceptar</button></div>
+</div>
+
+<script>
+  import { $, $$ } from '../lib/dom';
+
+  const root = document.documentElement;
+  const loader = $('#loader')!;
+  const isHome = document.body.dataset.page === 'inicio';
+
+  /* ---------- cabecera ---------- */
+  const top = $('#top')!;
+  const onScroll = () => top.classList.toggle('solid', scrollY > 40 || !isHome);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // "Conciertos" se marca en el menú cuando estás en la home viendo esa sección
+  if (isHome && location.hash === '#conciertos') $('.nav a[data-nav="conciertos"]')?.setAttribute('aria-current', 'page');
+
+  /* ---------- menú de móvil ---------- */
+  function setMenu(open: boolean) {
+    document.body.classList.toggle('menu-open', open);
+    root.classList.toggle('menu-open', open);
+    $('#burger')!.setAttribute('aria-expanded', String(open));
+    $('#drawer')!.setAttribute('aria-hidden', String(!open));
+  }
+  $('#burger')!.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+
+  /* ---------- vinilo: al entrar y al navegar ---------- */
+  // Avisa a la página de que ya se ve (por ejemplo, para abrir el formulario de avisos al llegar a #avisos)
+  function arrived(hash: string) {
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'instant' });
+    dispatchEvent(new CustomEvent('cc:arrived', { detail: hash }));
+  }
+  function showLoader() { root.classList.add('is-loading'); loader.classList.remove('out'); }
+  function hideLoader() { root.classList.remove('is-loading'); loader.classList.add('out'); }
+
+  const t0 = Date.now();
+  let shown = false;
+  function firstHide() {
+    if (shown) return; shown = true;
+    setTimeout(() => { root.classList.remove('is-loading'); arrived(location.hash); hideLoader(); }, Math.max(0, 1300 - (Date.now() - t0)));
+  }
+  if (document.readyState === 'complete') firstHide(); else addEventListener('load', firstHide);
+  setTimeout(firstHide, 4000); // por si alguna imagen tarda demasiado
+
+  // Al volver atrás desde otra página, el navegador puede restaurar esta con el vinilo puesto
+  addEventListener('pageshow', (e) => { if (e.persisted) hideLoader(); });
+
+  let busy = false;
+  const samePage = (u: URL) => u.pathname.replace(/\/$/, '') === location.pathname.replace(/\/$/, '');
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest('a[href]') as HTMLAnchorElement | null;
+    if (!a || e.defaultPrevented) return;
+    const raw = a.getAttribute('href')!;
+    if (raw === '#' || a.target === '_blank' || a.hasAttribute('data-jump') || a.id === 'open-cookies') return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    const to = new URL(a.href, location.href);
+    if (to.origin !== location.origin) return;
+    e.preventDefault();
+    if (busy) return; busy = true;
+    setMenu(false);
+    showLoader();
+    if (samePage(to)) {
+      // misma página: el vinilo tapa el salto y se va
+      setTimeout(() => {
+        root.classList.remove('is-loading');
+        history.replaceState(null, '', to.hash || to.pathname);
+        if (to.hash) arrived(to.hash); else scrollTo({ top: 0, behavior: 'instant' });
+        setTimeout(() => { hideLoader(); busy = false; }, 450);
+      }, 1200);
+    } else {
+      setTimeout(() => { location.href = to.href; }, 600);
+    }
+  }, true);
+
+  /* ---------- cookies ---------- */
+  const ck = $('#cookie')!;
+  let seen = false;
+  try { seen = localStorage.getItem('cc_ck') === '1'; } catch {}
+  if (!seen) ck.hidden = false;
+  $$('[data-ck]').forEach((b) => b.addEventListener('click', () => {
+    ck.hidden = true;
+    try { localStorage.setItem('cc_ck', '1'); } catch {}
+  }));
+  $('#open-cookies')!.addEventListener('click', (e) => { e.preventDefault(); ck.hidden = false; });
+</script>
+</body>
+</html>

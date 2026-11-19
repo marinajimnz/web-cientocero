@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+
+const contactos = [
+  { area: 'Booking · Salas y festivales', quien: 'Crash Music', mail: 'miguel@crashmusic.es', tel: '653 607 328' },
+  { area: 'Management', quien: 'Cientocero', mail: 'booking@cientocero.es', tel: '614 826 709' },
+  { area: 'Institucional · Ayuntamientos', quien: 'Carver Espectáculos', mail: 'jcarrion@carverespectaculos.com', tel: '658 987 161' },
+];
+const tipos = [
+  { id: 't-sala', value: 'Sala', label: 'Sala', sub: 'Gira o fecha suelta' },
+  { id: 't-fest', value: 'Festival', label: 'Festival', sub: 'Cartel o escenario' },
+  { id: 't-ayto', value: 'Ayuntamiento', label: 'Ayto.', sub: 'Fiestas y ferias' },
+  { id: 't-priv', value: 'Privado', label: 'Privado', sub: 'Bodas, empresa…' },
+];
+---
+<Base page="contratacion" title="Contratación · Cientocero" description="Contrata a Cientocero, tributo a Supersubmarina, para tu sala, festival, ayuntamiento o evento privado.">
+  <section class="hire-page" aria-labelledby="h-hire">
+    <div class="wrap hire">
+      <div>
+        <div class="eyebrow">Contratación</div>
+        <h1 class="display" id="h-hire" style="font-size:clamp(52px,8vw,110px)">Llévanos a tu escenario</h1>
+        <p class="muted" style="margin:20px 0 0;max-width:28em">Salas, festivales, fiestas patronales o un evento privado. Cuéntanos qué tienes en mente y te respondemos en menos de 48 horas.</p>
+        <div class="contacts">
+          {contactos.map((c) => (
+            <div class="contact">
+              <span class="eyebrow">{c.area}</span><b>{c.quien}</b>
+              <div class="row"><span>{c.mail}</span><button class="copy" type="button" data-copy={c.mail}>Copiar</button><span>{c.tel}</span></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div id="hire-box">
+        <form class="form" id="hire-form" novalidate>
+          <fieldset class="field full">
+            <legend>¿Qué tipo de evento es?</legend>
+            <div class="seg">
+              {tipos.map((t, i) => (
+                <label><input type="radio" name="tipo" value={t.value} id={t.id} checked={i === 0} /><span>{t.label}<small>{t.sub}</small></span></label>
+              ))}
+            </div>
+          </fieldset>
+          <div class="field"><label for="h-name">Nombre y apellidos</label><input id="h-name" autocomplete="name" required></div>
+          <div class="field"><label for="h-mail">Email</label><input id="h-mail" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="h-tel">Teléfono</label><input id="h-tel" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="h-date">Fecha aproximada</label><input id="h-date" type="date"></div>
+          <div class="field full"><label for="h-place">Lugar</label><input id="h-place" placeholder="Ciudad, recinto o sala"></div>
+          <div class="field full"><label for="h-msg">Cuéntanos más</label><textarea id="h-msg" placeholder="Aforo, horario, si hay backline…"></textarea></div>
+          <div class="actions">
+            <label class="check"><input type="checkbox" id="h-ok"> <span>He leído la <a href={url('privacidad')}>política de privacidad</a></span></label>
+            <button class="btn btn-lamp" type="submit">Enviar solicitud <span class="arrow">→</span></button>
+            <span class="err" id="hire-err" style="flex-basis:100%"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { $, $$, esc, okMail, copyText } from '../lib/dom';
+
+  $('#hire-form')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let err = '';
+    if (!$<HTMLInputElement>('#h-name')!.value.trim()) err = 'Falta tu nombre.';
+    else if (!okMail($<HTMLInputElement>('#h-mail')!.value.trim())) err = 'Revisa el email.';
+    else if (!$<HTMLInputElement>('#h-ok')!.checked) err = 'Marca la casilla de privacidad para poder responderte.';
+    $('#hire-err')!.textContent = err;
+    if (err) return;
+    const tipo = $<HTMLInputElement>('input[name=tipo]:checked')!.value;
+    $('#hire-box')!.innerHTML = `<div class="done" style="font-size:18px">Solicitud enviada (${esc(tipo)}). Te escribimos en menos de 48 horas.</div>`;
+  });
+
+  $$('.copy').forEach((b) => b.addEventListener('click', async () => {
+    if (await copyText(b.dataset.copy!, b.previousElementSibling)) {
+      b.textContent = 'Copiado';
+      setTimeout(() => (b.textContent = 'Copiar'), 1600);
+    }
+  }));
+</script>

@@ -1,0 +1,326 @@
+---
+import { getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+import canciones from '../data/canciones.json';
+import escenario from '../assets/img/escenario.jpg';
+import directo from '../assets/img/directo-bn.jpg';
+import voz from '../assets/img/voz.jpg';
+import grupo from '../assets/img/grupo.jpg';
+
+// Fotos de fondo de las tarjetas, optimizadas al tamaño de la tarjeta
+const fotos = await Promise.all([escenario, directo, voz, grupo].map((src) => getImage({ src, width: 840 })));
+
+// Color de la etiqueta y tinte de la foto según el disco
+const discos: Record<string, [string, string]> = {
+  'Supersubmarina': ['#9fc3d9', 'rgba(80,140,180,.22)'],
+  'Cientocero': ['#f2a23a', 'rgba(242,162,58,.18)'],
+  'Realimentación': ['#e88e7e', 'rgba(220,90,70,.2)'],
+  'Electroviral': ['#b9a3f0', 'rgba(130,90,230,.22)'],
+  'Santacruz': ['#e9d48a', 'rgba(220,190,90,.18)'],
+  'Viento de cara': ['#8fd0b4', 'rgba(70,170,130,.2)'],
+};
+
+const provincias = 'A Coruña,Álava,Albacete,Alicante,Almería,Asturias,Ávila,Badajoz,Baleares,Barcelona,Bizkaia,Burgos,Cáceres,Cádiz,Cantabria,Castellón,Ceuta,Ciudad Real,Córdoba,Cuenca,Gipuzkoa,Girona,Granada,Guadalajara,Huelva,Huesca,Jaén,La Rioja,Las Palmas,León,Lleida,Lugo,Madrid,Málaga,Melilla,Murcia,Navarra,Ourense,Palencia,Pontevedra,Salamanca,Santa Cruz de Tenerife,Segovia,Sevilla,Soria,Tarragona,Teruel,Toledo,Valencia,Valladolid,Zamora,Zaragoza'
+  .split(',').sort((a, b) => a.localeCompare(b, 'es'));
+
+const datos = { canciones, discos, fotos: fotos.map((f) => f.src) };
+const n = canciones.length;
+---
+<Base page="setlist" title="Tú haces el setlist · Cientocero" description={`Vota las canciones de Supersubmarina que quieres escuchar en la gira 2027 de Cientocero. ${n} canciones, un solo concierto.`}>
+  <section class="sl-hero">
+    <div class="bgword" aria-hidden="true">110</div>
+    <div class="wrap">
+      <h1 class="display">¿Qué quieres<br><em>escuchar?</em></h1>
+      <ol class="steps" id="steps"><li data-s="reg" class="on">Regístrate</li><li data-s="vote">Vota canciones</li><li data-s="done">Tu setlist</li></ol>
+    </div>
+  </section>
+  <section class="stage">
+    <div class="wrap">
+      <!-- paso 1: registro -->
+      <div class="panel reg" id="p-reg">
+        <div>
+          <p class="lead" style="margin-top:0">Te ponemos un trozo de cada canción. Desliza a la derecha las que tienen que sonar y a la izquierda las que puedes perdonar. Con los votos de todas las ciudades montamos el repertorio.</p>
+          <div class="why">
+            <div><i>1</i><span>Solo te pedimos email y provincia, para contar un voto por persona y saber qué se pide en cada ciudad.</span></div>
+            <div><i>2</i><span>{n} canciones, unos 3 minutos. Puedes deshacer el último voto si te equivocas.</span></div>
+            <div><i>3</i><span>Al final tienes tu setlist para compartir y ves lo más votado hasta ahora.</span></div>
+          </div>
+        </div>
+        <form id="reg-form" novalidate>
+          <div class="field"><label for="r-mail">Email</label><input id="r-mail" type="email" placeholder="tu@correo.com" autocomplete="email" required></div>
+          <div class="field"><label for="r-prov">Provincia</label>
+            <select id="r-prov" required><option value="">Elige tu provincia</option>{provincias.map((p) => <option value={p}>{p}</option>)}</select>
+          </div>
+          <div class="field"><label for="r-city">Ciudad <span style="text-transform:none;letter-spacing:0">(opcional)</span></label><input id="r-city" autocomplete="address-level2"></div>
+          <label class="check"><input type="checkbox" id="r-ok"><span>Acepto la <a href={url('privacidad')}>política de privacidad</a></span></label>
+          <span class="err" id="reg-err"></span>
+          <button class="btn btn-lamp" type="submit">Empezar a votar <span class="arrow">→</span></button>
+          <button class="skip" type="button" id="skip">Saltar registro (solo en la maqueta)</button>
+        </form>
+      </div>
+
+      <!-- paso 2: votación -->
+      <div id="yt-wrap" aria-hidden="true" style="position:fixed;left:-400px;top:0;width:200px;height:200px;opacity:0;pointer-events:none;overflow:hidden"><div id="yt-player"></div></div>
+      <div class="panel vote" id="p-vote" hidden>
+        <div class="deck-wrap">
+          <div class="meta-row"><span id="count">1 / {n}</span><span id="yescount">0 elegidas</span></div>
+          <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+          <div class="deck" id="deck" aria-live="polite"></div>
+          <div class="ctrls">
+            <button class="cbtn undo" id="b-undo" type="button" aria-label="Deshacer último voto" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
+            <button class="cbtn no" id="b-no" type="button" aria-label="No, esta no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            <button class="cbtn yes" id="b-yes" type="button" aria-label="Sí, que suene"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg></button>
+          </div>
+          <div class="hint"><span class="h-touch">← Desliza la tarjeta →</span><span class="h-keys">Desliza la tarjeta o usa <kbd>←</kbd> <kbd>→</kbd></span></div>
+        </div>
+        <aside class="side">
+          <div class="eyebrow">Tu setlist provisional</div>
+          <h4><span id="pk-n">0</span><span id="pk-l"> canciones</span></h4>
+          <ol class="picked" id="picked"><li class="none">Las que marques con ♥ aparecerán aquí, en orden.</li></ol>
+          <button class="skip" type="button" id="finish">Terminar ya y ver mi setlist</button>
+        </aside>
+      </div>
+
+      <!-- paso 3: resultado -->
+      <div class="panel result" id="p-done" hidden>
+        <div>
+          <div class="paper" id="paper">
+            <div class="ph"><span>Cientocero · Gira 2027</span><span id="paper-city"></span></div>
+            <h3>Mi setlist</h3>
+            <ol id="paper-list"></ol>
+            <div class="sig">— que suene alto</div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Voto enviado</div>
+          <h2 class="display" style="font-size:clamp(48px,6vw,84px)">Gracias, ya cuenta</h2>
+          <p class="lead">Tu voto entra en el recuento de tu provincia. Comparte tu setlist y reta a tu grupo a hacer el suyo.</p>
+          <div class="actions">
+            <button class="btn btn-lamp" type="button" id="share">Copiar para compartir</button>
+            <button class="btn btn-ghost" type="button" id="again">Votar otra vez</button>
+          </div>
+          <div class="toast" id="toast" role="status"></div>
+          <div style="margin-top:40px">
+            <div class="eyebrow">Lo más pedido hasta ahora <span class="tag-ej">Datos de ejemplo</span></div>
+            <ol class="rank" id="rank"></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script type="application/json" id="setlist-data" set:html={JSON.stringify(datos)} />
+</Base>
+
+<script>
+  import { $, $$, esc, okMail, copyText } from '../lib/dom';
+
+  interface Cancion { titulo: string; disco: string; youtube: string; inicio: number }
+  interface Song { id: number; t: string; a: string; yt: string; st: number }
+  const DATA = JSON.parse($('#setlist-data')!.textContent!) as { canciones: Cancion[]; discos: Record<string, [string, string]>; fotos: string[] };
+  const SONGS: Song[] = DATA.canciones.map((c, i) => ({ id: i, t: c.titulo, a: c.disco, yt: c.youtube, st: c.inicio }));
+
+  let user = { prov: '', city: '' };
+  let order: Song[] = [];
+  let idx = 0;
+  let votes: { s: Song; y: boolean }[] = [];
+  let playing: (HTMLElement & { _t?: number }) | null = null;
+
+  function step(s: 'reg' | 'vote' | 'done') {
+    const seq = ['reg', 'vote', 'done'];
+    $('#p-reg')!.hidden = s !== 'reg';
+    $('#p-vote')!.hidden = s !== 'vote';
+    $('#p-done')!.hidden = s !== 'done';
+    $$('#steps li').forEach((li) => {
+      const k = li.dataset.s!;
+      li.classList.toggle('on', k === s);
+      li.classList.toggle('ok', seq.indexOf(k) < seq.indexOf(s));
+    });
+  }
+  function shuffle<T>(a: T[]) {
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+  function startVote() {
+    loadYT();
+    order = shuffle(SONGS.slice()); idx = 0; votes = [];
+    renderDeck(); renderPicked(); step('vote');
+    // ancla el paso 2: la baraja y los botones quedan enteros bajo la cabecera
+    requestAnimationFrame(() => { const r = $('#p-vote')!.getBoundingClientRect(); scrollTo({ top: r.top + scrollY - 84, behavior: 'smooth' }); });
+  }
+
+  $('#reg-form')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let err = '';
+    if (!okMail($<HTMLInputElement>('#r-mail')!.value.trim())) err = 'Escribe un email válido.';
+    else if (!$<HTMLSelectElement>('#r-prov')!.value) err = 'Elige tu provincia.';
+    else if (!$<HTMLInputElement>('#r-ok')!.checked) err = 'Necesitamos que aceptes la política de privacidad.';
+    $('#reg-err')!.textContent = err;
+    if (err) return;
+    user = { prov: $<HTMLSelectElement>('#r-prov')!.value, city: $<HTMLInputElement>('#r-city')!.value.trim() };
+    startVote();
+  });
+  $('#skip')!.addEventListener('click', () => { user = { prov: 'Murcia', city: '' }; startVote(); });
+
+  /* ---------- tarjetas ---------- */
+  function cardHTML(s: Song, i: number) {
+    const al = DATA.discos[s.a] || ['#ece4da', 'transparent'];
+    return `<div class="card" data-i="${i}" style="--acol:${al[0]};--tint:${al[1]}">`
+      + `<div class="img"><img src="${DATA.fotos[s.id % DATA.fotos.length]}" alt="" draggable="false"></div>`
+      + `<div class="album"><em>${esc(s.a)}</em><span>${String(i + 1).padStart(2, '0')}/${order.length}</span></div>`
+      + '<div class="stamp yes">Que suene</div><div class="stamp no">Paso</div>'
+      + `<div class="body"><h3>${esc(s.t)}</h3>`
+      + '<button class="play" type="button" data-play aria-label="Escuchar fragmento"><span class="pb"><svg class="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></span><span class="txt">Escuchar 20 s</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>'
+      + '</div>';
+  }
+  function renderDeck() {
+    const deck = $('#deck')!;
+    let h = '';
+    for (let k = Math.min(idx + 2, order.length - 1); k >= idx; k--) h += cardHTML(order[k], k);
+    deck.innerHTML = h;
+    $$('.card', deck).forEach((c) => {
+      const i = +c.dataset.i!;
+      if (i === idx + 1) c.classList.add('behind');
+      if (i === idx + 2) c.classList.add('behind2');
+    });
+    $('#count')!.textContent = `${Math.min(idx + 1, order.length)} / ${order.length}`;
+    $('#bar')!.style.transform = `scaleX(${idx / order.length})`;
+    ($('#b-undo') as HTMLButtonElement).disabled = !votes.length;
+    const topCard = $(`.card[data-i="${idx}"]`, deck);
+    if (topCard) { bindDrag(topCard); if (idx === 0) topCard.classList.add('nudge'); }
+  }
+  function renderPicked() {
+    const yes = votes.filter((v) => v.y);
+    $('#pk-n')!.textContent = String(yes.length);
+    $('#pk-l')!.textContent = yes.length === 1 ? ' canción' : ' canciones';
+    $('#yescount')!.textContent = yes.length + (yes.length === 1 ? ' elegida' : ' elegidas');
+    const pl = $('#picked')!;
+    pl.innerHTML = yes.length
+      ? yes.map((v, i) => `<li><span>${String(i + 1).padStart(2, '0')}</span><span>${esc(v.s.t)}</span><small>${esc(v.s.a)}</small></li>`).join('')
+      : '<li class="none">Las que marques con ♥ aparecerán aquí, en orden.</li>';
+    pl.scrollTop = pl.scrollHeight;
+  }
+  function vote(y: boolean) {
+    if (idx >= order.length) return;
+    const c = $(`.card[data-i="${idx}"]`);
+    stopPlay();
+    if (c) {
+      c.style.transform = `translateX(${(y ? 1 : -1) * 140}%) rotate(${y ? 18 : -18}deg)`;
+      c.style.opacity = '0';
+      $(`.stamp.${y ? 'yes' : 'no'}`, c)!.style.opacity = '1';
+    }
+    votes.push({ s: order[idx], y }); idx++;
+    renderPicked();
+    setTimeout(() => { if (idx >= order.length) finish(); else renderDeck(); }, 260);
+  }
+  $('#b-yes')!.addEventListener('click', () => vote(true));
+  $('#b-no')!.addEventListener('click', () => vote(false));
+  $('#b-undo')!.addEventListener('click', () => { if (!votes.length) return; votes.pop(); idx--; renderPicked(); renderDeck(); });
+  $('#finish')!.addEventListener('click', finish);
+  addEventListener('keydown', (e) => {
+    if ($('#p-vote')!.hidden) return;
+    if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); vote(true); } else if (e.key === 'ArrowLeft') { e.preventDefault(); vote(false); }
+  });
+
+  function bindDrag(card: HTMLElement) {
+    let sx = 0, dx = 0, down = false;
+    card.addEventListener('pointerdown', (e) => {
+      if ((e.target as Element).closest('[data-play]')) return;
+      card.classList.remove('nudge');
+      down = true; sx = e.clientX; dx = 0;
+      card.setPointerCapture(e.pointerId);
+      card.classList.add('dragging');
+    });
+    card.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      dx = e.clientX - sx;
+      card.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
+      $('.stamp.yes', card)!.style.opacity = String(Math.max(0, Math.min(1, dx / 100)));
+      $('.stamp.no', card)!.style.opacity = String(Math.max(0, Math.min(1, -dx / 100)));
+    });
+    const up = () => {
+      if (!down) return; down = false;
+      card.classList.remove('dragging');
+      if (Math.abs(dx) > 100) vote(dx > 0);
+      else { card.style.transform = ''; $$('.stamp', card).forEach((s) => (s.style.opacity = '0')); }
+    };
+    card.addEventListener('pointerup', up);
+    card.addEventListener('pointercancel', up);
+  }
+
+  /* ---------- fragmentos de audio (YouTube) ---------- */
+  // Un reproductor de YouTube oculto suena con el fragmento de 20 s de cada canción.
+  // Si YouTube no carga, el botón simula la reproducción para que la maqueta se pueda enseñar igual.
+  let yt: any = null, ytReady = false, ytLoading = false;
+  function loadYT() {
+    if (ytLoading) return; ytLoading = true;
+    (window as any).onYouTubeIframeAPIReady = () => {
+      yt = new (window as any).YT.Player('yt-player', {
+        width: 200, height: 200, host: 'https://www.youtube-nocookie.com',
+        playerVars: { playsinline: 1, controls: 0, disablekb: 1, rel: 0 },
+        events: { onReady: () => { ytReady = true; } },
+      });
+    };
+    const sc = document.createElement('script');
+    sc.src = 'https://www.youtube.com/iframe_api'; sc.async = true;
+    document.head.appendChild(sc);
+  }
+  function stopPlay() {
+    if (playing) {
+      playing.classList.remove('playing');
+      playing.setAttribute('aria-label', 'Escuchar fragmento');
+      $('.txt', playing)!.textContent = 'Escuchar 20 s';
+      clearInterval(playing._t); playing = null;
+    }
+    if (ytReady) { try { yt.pauseVideo(); } catch {} }
+  }
+  $('#deck')!.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest('[data-play]') as (HTMLElement & { _t?: number }) | null;
+    if (!b) return;
+    if (playing === b) { stopPlay(); return; }
+    stopPlay();
+    const song = order[+(b.closest('.card') as HTMLElement).dataset.i!];
+    if (ytReady) {
+      try { yt.loadVideoById({ videoId: song.yt, startSeconds: song.st, endSeconds: song.st + 20 }); yt.unMute(); yt.setVolume(100); } catch {}
+    }
+    playing = b;
+    b.classList.add('playing');
+    b.setAttribute('aria-label', 'Pausar fragmento');
+    const label = ytReady ? 'Sonando' : 'Sin sonido';
+    $('.txt', b)!.textContent = `${ytReady ? 'Sonando' : 'Vista previa sin sonido'} · 0:20`;
+    let t = 20;
+    b._t = window.setInterval(() => {
+      t--;
+      if (t <= 0) { stopPlay(); return; }
+      $('.txt', b)!.textContent = `${label} · 0:${String(t).padStart(2, '0')}`;
+    }, 1000);
+  });
+
+  /* ---------- resultado ---------- */
+  function finish() {
+    stopPlay();
+    const yes = votes.filter((v) => v.y).map((v) => v.s);
+    $('#paper-city')!.textContent = user.city || user.prov || '';
+    $('#paper-list')!.innerHTML = yes.length ? yes.map((s) => `<li>${esc(s.t)}</li>`).join('') : '<li>Sorpréndeme</li>';
+    // ranking de ejemplo, con tus elegidas marcadas
+    const demo: [string, number][] = [['Cientocero', 94], ['Ana', 91], ['Hermética', 87], ['Viento de cara', 84], ['Ola de calor', 79], ['Supersubmarina', 76], ['Canción de guerra', 71], ['En mis venas', 66]];
+    const mine = yes.map((s) => s.t);
+    $('#rank')!.innerHTML = demo.map((r, i) => {
+      const m = mine.includes(r[0]);
+      return `<li class="${m ? 'mine' : ''}"><span>${i + 1}</span><span>${esc(r[0])}${m ? ' <span class="muted" style="font-size:12px">· también la elegiste</span>' : ''}</span><b>${r[1]}%</b><span class="m"><i style="width:${r[1]}%"></i></span></li>`;
+    }).join('');
+    step('done');
+    $('#p-done')!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  $('#again')!.addEventListener('click', startVote);
+  $('#share')!.addEventListener('click', async () => {
+    const yes = votes.filter((v) => v.y).map((v, i) => `${i + 1}. ${v.s.t}`);
+    const txt = `Mi setlist para la gira de Cientocero:\n${yes.join('\n')}\n\nHaz el tuyo en ${location.href}`;
+    $('#toast')!.textContent = (await copyText(txt))
+      ? 'Copiado. Pégalo en tus stories o en el grupo.'
+      : 'No se pudo copiar automáticamente: selecciona la lista y cópiala.';
+  });
+
+  step('reg');
+</script>
