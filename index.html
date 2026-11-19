@@ -59,6 +59,28 @@ h2.display{font-size:clamp(52px,9vw,128px)}
 .arrow{font-family:var(--f-mono);font-weight:500}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+/* ---------- pantalla de carga: vinilo ---------- */
+.loader{position:fixed;inset:0;z-index:100;background:var(--night);display:grid;place-content:center;justify-items:center;gap:30px;
+  transition:opacity .7s ease,visibility .7s ease}
+.loader.out{opacity:0;visibility:hidden;pointer-events:none}
+.vinyl{position:relative;width:min(240px,58vw);aspect-ratio:1;border-radius:50%;
+  background:
+    conic-gradient(from 20deg,transparent 0 8%,rgba(236,228,218,.10) 13%,transparent 19% 56%,rgba(236,228,218,.07) 61%,transparent 67%),
+    repeating-radial-gradient(circle at center,#0d0c0c 0 1.5px,#1c1a19 1.5px 3.5px);
+  box-shadow:0 0 0 2px #050505,0 30px 70px -20px rgba(0,0,0,.9);
+  animation:spin 1.8s linear infinite}
+.vinyl::before{content:"";position:absolute;inset:6%;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(236,228,218,.06)}
+.vinyl .label{position:absolute;inset:32%;border-radius:50%;background:var(--tungsten);display:grid;place-items:center;
+  box-shadow:0 0 0 3px #0d0c0c,inset 0 0 0 1px rgba(0,0,0,.25)}
+.vinyl .label img{width:58%;height:auto;filter:brightness(0) invert(.06)}
+.vinyl .label::after{content:"";position:absolute;width:7%;aspect-ratio:1;border-radius:50%;background:var(--night)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader p{margin:0;font:900 clamp(28px,6vw,40px)/1 var(--f-display);letter-spacing:.32em;text-transform:uppercase;padding-left:.32em;
+  animation:pulse 1.8s ease-in-out infinite}
+html.is-loading,html.is-loading body{overflow:hidden}
+html.is-loading .hero h1 .ln span{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.vinyl{animation:spin 6s linear infinite !important}}
+
 /* ---------- header ---------- */
 .top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .3s,backdrop-filter .3s}
 .top.solid{background:rgba(10,9,9,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
@@ -456,6 +478,11 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
 </head>
 <body>
 <!-- ============ HEADER ============ -->
+<div class="loader" id="loader" role="status" aria-label="Cargando Cientocero">
+  <div class="vinyl" aria-hidden="true"><div class="label"><img src="img/logo.png" alt=""></div></div>
+  <p>Cientocero</p>
+</div>
+<script>document.documentElement.classList.add("is-loading");</script>
 <header class="top" id="top">
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Cientocero, inicio"><img src="img/logo.png" alt=""><span>Cientocero</span></a>
@@ -1135,6 +1162,16 @@ $("#share").addEventListener("click",function(){
   var ok=function(){$("#toast").textContent="Copiado. Pégalo en tus stories o en el grupo."};
   try{ navigator.clipboard.writeText(txt).then(ok,function(){$("#toast").textContent="No se pudo copiar automáticamente: selecciona la lista y cópiala."}); }catch(x){ $("#toast").textContent="No se pudo copiar automáticamente."; }
 });
+
+/* ---------- pantalla de carga ---------- */
+(function(){
+  var t0=Date.now(), MIN=1600, done=false;
+  function hide(){ if(done) return; done=true;
+    setTimeout(function(){ $("#loader").classList.add("out"); document.documentElement.classList.remove("is-loading"); },
+      Math.max(0, MIN-(Date.now()-t0))); }
+  if(document.readyState==="complete") hide(); else addEventListener("load",hide);
+  setTimeout(hide,4000); // por si alguna imagen tarda demasiado
+})();
 
 step("reg");
 route();
