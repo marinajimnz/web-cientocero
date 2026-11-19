@@ -504,6 +504,22 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
   *,*::before,*::after{animation:none !important;transition:none !important}
   html{scroll-behavior:auto}
 }
+
+/* ---------- legibilidad del texto sobre fotos ---------- */
+@media (min-width:721px){
+  .hero .bg::after{background:
+    linear-gradient(90deg,rgba(10,9,9,.78) 0%,rgba(10,9,9,.35) 50%,rgba(10,9,9,0) 78%),
+    radial-gradient(120% 90% at 70% 30%,transparent 30%,rgba(10,9,9,.55) 70%,var(--night) 100%),
+    linear-gradient(to top,var(--night) 0%,rgba(10,9,9,.55) 45%,rgba(10,9,9,.15) 100%)}
+}
+.duo-photo .bg::after{background:linear-gradient(to top,rgba(10,9,9,.96) 8%,rgba(10,9,9,.7) 55%,rgba(10,9,9,.5))}
+.promo .bg::after{background:linear-gradient(90deg,var(--night) 0%,rgba(10,9,9,.88) 50%,rgba(10,9,9,.35) 100%)}
+.hero .eyebrow,.hero-sub p,.duo-card .eyebrow,.duo-card p.muted,.promo .eyebrow,.promo .lead{color:var(--bone);text-shadow:0 1px 2px rgba(0,0,0,.7),0 2px 16px rgba(0,0,0,.6)}
+.hero h1,.duo-card .display,.promo .display{text-shadow:0 2px 24px rgba(0,0,0,.45)}
+/* pies de foto sobre etiqueta oscura */
+.ph::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(to top,rgba(10,9,9,.8),transparent);pointer-events:none}
+.ph figcaption{z-index:1;left:14px;bottom:12px;color:var(--bone);font-size:12px;letter-spacing:.14em;padding:7px 10px;
+  background:rgba(10,9,9,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 0 0 1px var(--line)}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
