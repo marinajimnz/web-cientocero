@@ -178,6 +178,15 @@ section.block{padding-block:clamp(72px,10vw,140px)}
 
 /* ---------- conciertos ---------- */
 .filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.fwrap{position:relative;display:flex;align-items:center;gap:6px}
+.fbtn{padding:11px 16px}
+.fbtn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.fbtn.on{background:var(--bone);color:var(--night);box-shadow:none}
+.fclear{width:34px;height:34px;border-radius:50%;border:0;background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--bone);font-size:18px;line-height:1;cursor:pointer}
+.fpop{position:absolute;top:calc(100% + 8px);left:0;z-index:20;min-width:220px;background:var(--stage);padding:14px;display:grid;gap:10px;box-shadow:inset 0 0 0 1px var(--line),0 24px 50px -12px rgba(0,0,0,.85);animation:fadein .2s}
+.fpop[hidden]{display:none}
+.fpop #chips{display:grid;gap:6px}
+.fpop .chip{justify-content:space-between;width:100%;border-radius:2px;padding:12px 14px}
 .chip{border:0;background:transparent;box-shadow:inset 0 0 0 1px var(--line);border-radius:999px;padding:9px 14px;cursor:pointer;
   font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--smoke);display:inline-flex;gap:8px;align-items:center}
 .chip sup{font-size:10px;color:var(--smoke);opacity:.8;vertical-align:baseline}
@@ -185,7 +194,9 @@ section.block{padding-block:clamp(72px,10vw,140px)}
 .chip[aria-pressed="true"]{background:var(--bone);color:var(--night);box-shadow:none}
 .chip[aria-pressed="true"] sup{color:var(--night)}
 .search{margin-left:auto;display:flex;align-items:center;gap:8px;box-shadow:inset 0 -1px 0 var(--line);padding:6px 2px;min-width:0}
-.search input{background:none;border:0;outline:0;width:180px;max-width:46vw;font-size:15px}
+.search input{background:none;border:0;outline:0;width:180px;max-width:46vw;font-size:16px}
+/* ningún campo por debajo de 16 px: así el móvil no amplía la página al tocarlo */
+input,select,textarea{font-size:max(16px,1em)}
 .search input::placeholder{color:var(--smoke)}
 .search svg{width:16px;height:16px;fill:none;stroke:var(--smoke);stroke-width:2}
 @media (max-width:720px){.search{margin-left:0;width:100%}.search input{width:100%;max-width:none}}
@@ -549,7 +560,11 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
         <p class="muted" style="margin:0;max-width:26em">Elige tu ciudad y consigue la entrada antes de que vuele. Iremos sumando fechas: si tu ciudad no está, apúntate abajo y te avisamos primero.</p>
       </div>
       <div class="filters" role="toolbar" aria-label="Filtrar conciertos">
-        <div id="chips" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        <div class="fwrap">
+          <button type="button" class="chip fbtn" id="f-btn" aria-expanded="false" aria-controls="f-pop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg><span id="f-label">Filtrar</span></button>
+          <button type="button" class="fclear" id="f-clear" aria-label="Quitar filtro" hidden>×</button>
+          <div class="fpop" id="f-pop" hidden><span class="eyebrow">Mes</span><div id="chips"></div></div>
+        </div>
         <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="sr">Buscar ciudad o sala</span><input id="q" type="search" placeholder="Busca tu ciudad o sala" autocomplete="off"></label>
       </div>
       <ol class="shows" id="shows"></ol>
@@ -1024,7 +1039,18 @@ function renderShows(){
   if(!list.length) h='<li class="empty">No hay fechas que coincidan. Apúntate a los avisos y te contamos cuando vayamos cerca.</li>';
   $("#shows").innerHTML = h;
 }
-$("#chips").addEventListener("click",function(e){var b=e.target.closest(".chip"); if(!b) return; month=b.getAttribute("data-m"); renderChips(); renderShows();});
+function setFilter(m){
+  month=m; renderChips(); renderShows(); setPop(false);
+  var on=month!=="all", p=month.split("-");
+  $("#f-label").textContent = on ? "Filtrar · "+MESL[+p[1]] : "Filtrar";
+  $("#f-btn").classList.toggle("on",on); $("#f-clear").hidden=!on;
+}
+function setPop(o){ $("#f-pop").hidden=!o; $("#f-btn").setAttribute("aria-expanded",o); }
+$("#f-btn").addEventListener("click",function(e){ e.stopPropagation(); setPop($("#f-pop").hidden); });
+$("#f-clear").addEventListener("click",function(){ setFilter("all"); });
+$("#chips").addEventListener("click",function(e){var b=e.target.closest(".chip"); if(!b) return; setFilter(b.getAttribute("data-m"));});
+document.addEventListener("click",function(e){ if(!e.target.closest(".fwrap")) setPop(false); });
+addEventListener("keydown",function(e){ if(e.key==="Escape") setPop(false); });
 $("#q").addEventListener("input",renderShows);
 renderChips(); renderShows();
 
