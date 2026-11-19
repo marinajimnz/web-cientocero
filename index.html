@@ -571,7 +571,7 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
         <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="sr">Buscar ciudad o sala</span><input id="q" type="search" placeholder="Busca tu ciudad o sala" autocomplete="off"></label>
       </div>
       <ol class="shows" id="shows"></ol>
-      <div class="more-wrap"><button class="btn btn-ghost" id="more" type="button" hidden>Más conciertos</button></div>
+      <div class="more-wrap"><button class="btn btn-lamp" id="more" type="button" hidden>Más conciertos</button></div>
       <div class="shows-foot">
         <span class="eyebrow">+ Más fechas por confirmar</span>
         <a class="btn btn-ghost" href="#avisos">Avísame de nuevas fechas <span class="arrow">→</span></a>
@@ -1033,6 +1033,7 @@ function renderShows(){
   var hidden = canFold && !expanded ? list.length-FIRST : 0;
   if(hidden) list=list.slice(0,FIRST);
   $("#more").hidden=!canFold;
+  $("#more").classList.toggle("btn-lamp",!expanded); $("#more").classList.toggle("btn-ghost",expanded);
   $("#more").innerHTML = expanded ? 'Ver menos <span class="arrow">↑</span>' : 'Más conciertos <sup>'+hidden+'</sup> <span class="arrow">↓</span>';
   var h="", last="";
   list.forEach(function(s){
