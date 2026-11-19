@@ -36,6 +36,5 @@ El estado puede ser `"ultimas"` (botón destacado "Últimas entradas") o `"agota
 - En el setlist, el fragmento de audio está simulado. En la web real se conecta con los fragmentos de YouTube del plugin actual.
 - El ranking "Lo más pedido" usa datos de ejemplo.
 - El enlace "Saltar registro" del setlist es para enseñar la maqueta rápido.
-- Facebook y YouTube no tienen enlace todavía.
 
 Las fotos y los logos vienen de la web actual de Cientocero. Las fotos `escenario.jpg` y `voz.jpg` son © Óscar Lugo · Cooltural.
