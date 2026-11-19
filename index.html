@@ -63,6 +63,7 @@ h2.display{font-size:clamp(52px,9vw,128px)}
 .loader{position:fixed;inset:0;z-index:100;background:var(--night);display:grid;place-content:center;justify-items:center;gap:30px;
   transition:opacity .7s ease,visibility .7s ease}
 .loader.out{opacity:0;visibility:hidden;pointer-events:none}
+.loader:not(.out){transition-duration:.25s}
 .vinyl{position:relative;width:min(240px,58vw);aspect-ratio:1;border-radius:50%;
   background:
     conic-gradient(from 20deg,transparent 0 8%,rgba(236,228,218,.10) 13%,transparent 19% 56%,rgba(236,228,218,.07) 61%,transparent 67%),
@@ -1031,7 +1032,7 @@ function route(){
     current=view;
   }
   if(!target) scrollTo({top:0,behavior:"instant"});
-  if(target) setTimeout(function(){target.scrollIntoView({behavior:"smooth"})},30);
+  if(target) setTimeout(function(){target.scrollIntoView({behavior:navBusy?"instant":"smooth"})},30);
   $$(".nav a").forEach(function(a){
     var n=a.getAttribute("data-nav");
     if(n===view||(view==="inicio"&&n===h)) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
@@ -1172,6 +1173,28 @@ $("#share").addEventListener("click",function(){
   if(document.readyState==="complete") hide(); else addEventListener("load",hide);
   setTimeout(hide,4000); // por si alguna imagen tarda demasiado
 })();
+
+/* ---------- vinilo también al navegar dentro de la página ---------- */
+var navBusy=false;
+function goTo(href){
+  if(navBusy) return; navBusy=true;
+  setMenu(false);
+  var L=$("#loader");
+  document.documentElement.classList.add("is-loading"); L.classList.remove("out");
+  setTimeout(function(){
+    document.documentElement.classList.remove("is-loading"); // el vinilo sigue tapando; así el salto de scroll funciona
+    if(location.hash===href) route(); else location.hash=href.slice(1);
+    if(href==="#avisos") setTimeout(openNl,60);
+    setTimeout(function(){ L.classList.add("out"); document.documentElement.classList.remove("is-loading"); navBusy=false; },500);
+  },1200);
+}
+// cualquier enlace interno (#...) pasa por el vinilo; los saltos del índice legal y los enlaces vacíos no
+document.addEventListener("click",function(e){
+  var a=e.target.closest('a[href^="#"]'); if(!a) return;
+  var h=a.getAttribute("href");
+  if(h==="#"||a.hasAttribute("data-jump")||a.id==="open-cookies") return;
+  e.preventDefault(); e.stopPropagation(); goTo(h);
+},true);
 
 step("reg");
 route();
