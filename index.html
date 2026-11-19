@@ -1,0 +1,1081 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Cientocero, tributo a Supersubmarina. Gira 2027: fechas, entradas, contratación y Tú haces el setlist.">
+<title>Cientocero Gira 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Display:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Permanent+Marker&display=swap">
+<style>
+/* Layout: noche de concierto. Fondo negro de sala, fotos en B/N con grano y viñeta, tipografía de cartel de gira.
+   La luz ámbar de los focos es el único color: se reserva para entradas y acciones. */
+:root{
+  --night:#0a0909;      /* fondo de sala */
+  --stage:#141211;      /* superficies */
+  --bone:#ece4da;       /* texto principal, tono del logo */
+  --smoke:#a0978d;      /* texto secundario */
+  --line:rgba(236,228,218,.14);
+  --tungsten:#ff5d73;   /* acento: rojo piloto, la luz de "en directo" */
+  --tungsten-ink:#1c0307;
+  --paper:#efe9df;      /* papel del setlist */
+  --marker:#161414;
+  --ok:#7fd49a; --no:#cfc6bb;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-marker:"Permanent Marker","Comic Sans MS",cursive;
+  --gutter:max(16px, env(safe-area-inset-left,0px));
+  --gutter-r:max(16px, env(safe-area-inset-right,0px));
+  --wrap:1240px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--night);color:var(--bone);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+/* grano de película */
+body::after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+a{color:inherit}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--tungsten);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.eyebrow{font:500 12px/1.2 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--smoke)}
+.display{font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:.86;letter-spacing:-.005em;text-wrap:balance;margin:0}
+h2.display{font-size:clamp(52px,9vw,128px)}
+.lead{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:var(--bone);max-width:34em}
+.muted{color:var(--smoke)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;border:0;cursor:pointer;text-decoration:none;
+  font:700 15px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:16px 22px;border-radius:2px;transition:transform .15s,background .2s,color .2s}
+.btn-lamp{background:var(--tungsten);color:var(--tungsten-ink);box-shadow:0 0 0 0 rgba(242,162,58,.0)}
+.btn-lamp:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(0,0,0,.7)}
+.btn-ghost{background:transparent;color:var(--bone);box-shadow:inset 0 0 0 1px var(--line)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1px var(--bone)}
+.arrow{font-family:var(--f-mono);font-weight:500}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- header ---------- */
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .3s,backdrop-filter .3s}
+.top.solid{background:rgba(10,9,9,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:72px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:none}
+.brand img{width:34px;height:34px;object-fit:contain}
+.brand span{font:800 22px/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase}
+.nav{display:flex;gap:28px;margin-left:auto}
+.nav a{font:500 13px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--smoke);padding:8px 0;position:relative}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--bone)}
+.nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--tungsten)}
+.top .btn{padding:12px 16px;font-size:13px}
+.social{display:flex;gap:6px}
+.social a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:var(--smoke);text-decoration:none}
+.social a:hover{color:var(--bone);background:rgba(236,228,218,.07)}
+.social svg{width:18px;height:18px;fill:currentColor}
+.burger{display:none;margin-left:auto;background:none;border:0;width:44px;height:44px;cursor:pointer;position:relative}
+.burger i{position:absolute;left:10px;right:10px;height:2px;background:var(--bone);transition:transform .25s,opacity .2s}
+.burger i:nth-child(1){top:15px}.burger i:nth-child(2){top:21px}.burger i:nth-child(3){top:27px}
+.menu-open .burger i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-open .burger i:nth-child(2){opacity:0}
+.menu-open .burger i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:45;background:var(--night);display:flex;flex-direction:column;justify-content:center;gap:8px;
+  padding:96px var(--gutter-r) 40px var(--gutter);opacity:0;pointer-events:none;transition:opacity .25s}
+.menu-open .drawer{opacity:1;pointer-events:auto}
+.drawer a.big{font:900 clamp(48px,14vw,84px)/.95 var(--f-display);text-transform:uppercase;text-decoration:none}
+.drawer a.big:hover{color:var(--tungsten)}
+.drawer .social{margin-top:28px}
+@media (max-width:960px){.nav,.top .social,.top .btn{display:none}.burger{display:block}}
+
+/* ---------- vistas ---------- */
+.view{display:none}
+.view.on{display:block;animation:fadein .5s ease}
+@keyframes fadein{from{opacity:.0}to{opacity:1}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:min(92vh,900px);display:flex;align-items:flex-end;overflow:hidden;padding-block:120px 48px}
+.hero .bg{position:absolute;inset:0}
+.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:60% 35%;filter:grayscale(1) contrast(1.15) brightness(.82);transform:scale(1.04);animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.hero .bg::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 70% 30%,transparent 30%,rgba(10,9,9,.55) 70%,var(--night) 100%),
+  linear-gradient(to top,var(--night) 0%,rgba(10,9,9,.4) 45%,rgba(10,9,9,.15) 100%)}
+.hero .wrap{position:relative;width:100%}
+.hero-kicker{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:18px}
+.hero-kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--tungsten);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero h1{font-size:clamp(52px,12.5vw,200px);margin-left:-.04em}
+/* las etiquetas pequeñas nunca se pegan al titular gigante */
+.eyebrow + .display,.eyebrow + h2,.eyebrow + h1{margin-top:18px}
+.field legend{margin-bottom:12px}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln span{display:block;animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .ln:nth-child(2) span{animation-delay:.08s}
+@keyframes rise{from{transform:translateY(100%)}to{transform:none}}
+.hero-sub{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-top:28px}
+.hero-sub p{margin:0;max-width:30em;font-size:clamp(17px,1.5vw,19px)}
+.hero-sub p b{font-weight:600}
+.nextshow{display:flex;align-items:stretch;background:rgba(20,18,17,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);text-decoration:none;min-width:0;overflow:hidden}
+.nextshow .d{padding:14px 18px;border-right:1px dashed var(--line);text-align:center;font-family:var(--f-display);text-transform:uppercase}
+.nextshow .d b{display:block;font-size:44px;line-height:.9;font-weight:900}
+.nextshow .d small{font:500 11px/1 var(--f-mono);letter-spacing:.14em;color:var(--smoke)}
+.nextshow .i{flex:1;padding:14px 18px;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0}
+.nextshow .i strong{font:800 24px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em}
+.nextshow .go{display:grid;place-items:center;padding:0 18px;background:var(--tungsten);color:var(--tungsten-ink);font:700 13px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:720px){.hero-sub{grid-template-columns:1fr}.nextshow .go{padding:0 14px}}
+
+/* ---------- ticker ---------- */
+.ticker{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding-block:14px}
+.ticker .track{display:inline-flex;gap:36px;animation:ticker 60s linear infinite;padding-left:36px}
+.ticker span{font:800 22px/1 var(--f-display);text-transform:uppercase;letter-spacing:.06em;color:var(--smoke)}
+.ticker span.s{color:var(--tungsten)}
+@keyframes ticker{to{transform:translateX(-50%)}}
+
+/* ---------- secciones ---------- */
+section.block{padding-block:clamp(72px,10vw,140px)}
+.head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:40px}
+.head .eyebrow{margin-bottom:14px}
+@media (max-width:720px){.head{grid-template-columns:1fr}}
+
+/* ---------- conciertos ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.chip{border:0;background:transparent;box-shadow:inset 0 0 0 1px var(--line);border-radius:999px;padding:9px 14px;cursor:pointer;
+  font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--smoke);display:inline-flex;gap:8px;align-items:center}
+.chip sup{font-size:10px;color:var(--smoke);opacity:.8;vertical-align:baseline}
+.chip:hover{color:var(--bone)}
+.chip[aria-pressed="true"]{background:var(--bone);color:var(--night);box-shadow:none}
+.chip[aria-pressed="true"] sup{color:var(--night)}
+.search{margin-left:auto;display:flex;align-items:center;gap:8px;box-shadow:inset 0 -1px 0 var(--line);padding:6px 2px;min-width:0}
+.search input{background:none;border:0;outline:0;width:180px;max-width:46vw;font-size:15px}
+.search input::placeholder{color:var(--smoke)}
+.search svg{width:16px;height:16px;fill:none;stroke:var(--smoke);stroke-width:2}
+@media (max-width:720px){.search{margin-left:0;width:100%}.search input{width:100%;max-width:none}}
+.shows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.month{font:500 12px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--tungsten);padding:28px 0 10px;border-bottom:1px solid var(--line)}
+.show{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,.8fr) auto;gap:24px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);position:relative;transition:background .2s}
+.show::before{content:"";position:absolute;inset:0 calc(-1 * var(--gutter));background:linear-gradient(90deg,color-mix(in srgb,var(--tungsten) 10%,transparent),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none}
+.show:hover::before{opacity:1}
+.show .date{display:flex;align-items:baseline;gap:10px;font-family:var(--f-display);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.show .date b{font-size:56px;font-weight:900;line-height:.85;min-width:1.15em}
+.show .date span{display:flex;flex-direction:column;font:500 12px/1.4 var(--f-mono);letter-spacing:.12em;color:var(--smoke)}
+.show .city{font:800 clamp(30px,3.6vw,46px)/.95 var(--f-display);text-transform:uppercase;letter-spacing:.01em;min-width:0;overflow-wrap:anywhere}
+.show .city small{display:block;font:400 14px/1.4 var(--f-body);text-transform:none;letter-spacing:0;color:var(--smoke);margin-top:6px}
+.show .venue{font-size:15px;color:var(--bone);min-width:0}
+.show .venue small{display:block;font:500 11px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+.show .buy{padding:13px 18px;font-size:13px}
+.show.next .city::after{content:"Próximo";display:inline-block;vertical-align:middle;margin-left:12px;transform:translateY(-6px);font:600 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tungsten-ink);background:var(--tungsten);padding:6px 8px}
+.badge-tag{font:600 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;padding:6px 8px;box-shadow:inset 0 0 0 1px currentColor}
+@media (max-width:860px){
+  .show{grid-template-columns:auto minmax(0,1fr);gap:6px 18px;padding:18px 0}
+  .show .date{grid-row:span 2;flex-direction:column;align-items:flex-start;gap:4px}
+  .show .date b{font-size:46px}
+  .show .venue{grid-column:2}
+  .show .buy{grid-column:1 / -1;margin-top:10px;width:100%}
+}
+.shows-foot{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center;margin-top:28px}
+.empty{padding:40px 0;color:var(--smoke);border-bottom:1px solid var(--line)}
+
+/* ---------- setlist banner ---------- */
+.promo{position:relative;overflow:hidden;min-height:560px;display:flex;align-items:center}
+.promo .bg{position:absolute;inset:0}
+.promo .bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1) brightness(.55)}
+.promo .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--night) 0%,rgba(10,9,9,.75) 45%,rgba(10,9,9,.2) 100%)}
+.promo .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center;width:100%;padding-block:80px}
+.promo p{margin:22px 0 32px}
+.mini-paper{justify-self:end;width:min(340px,100%);background:var(--paper);color:var(--marker);padding:30px 28px 26px;transform:rotate(3deg);box-shadow:0 30px 60px -20px rgba(0,0,0,.8);position:relative}
+.mini-paper::before,.mini-paper::after{content:"";position:absolute;top:-12px;width:90px;height:26px;background:rgba(200,190,170,.75)}
+.mini-paper::before{left:-14px;transform:rotate(-28deg)}
+.mini-paper::after{right:-14px;transform:rotate(26deg)}
+.mini-paper h4{margin:0 0 10px;font:400 22px/1 var(--f-marker)}
+.mini-paper ol{margin:0;padding-left:1.6em;font:400 20px/1.55 var(--f-marker)}
+.mini-paper ol li::marker{font-size:16px}
+.mini-paper .q{color:rgba(22,20,20,.35)}
+@media (max-width:820px){.promo .wrap{grid-template-columns:1fr}.mini-paper{justify-self:center;transform:rotate(-2deg)}}
+/* móvil: botones principales centrados */
+@media (max-width:720px){
+  .promo .btn,.shows-foot .btn{display:flex;width:max-content;max-width:100%;margin-inline:auto}
+  .shows-foot{flex-direction:column;justify-content:center}
+  .form .actions{flex-direction:column;align-items:center}
+  .form .actions .check{align-self:flex-start}
+}
+
+/* ---------- revive ---------- */
+.revive{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px;align-items:end}
+.revive .t{grid-column:1 / span 6}
+.revive .t p{margin:24px 0 0}
+.revive .ph1{grid-column:7 / span 6}
+.revive .ph2{grid-column:2 / span 5}
+.revive .t2{grid-column:8 / span 4;align-self:center}
+.ph{position:relative;overflow:hidden;margin:0}
+.ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:filter .6s,transform .8s}
+.ph:hover img{filter:grayscale(0) contrast(1.05);transform:scale(1.03)}
+.ph figcaption{position:absolute;left:12px;bottom:10px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(236,228,218,.75)}
+.ph1{aspect-ratio:16/10}.ph2{aspect-ratio:4/3}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:56px;border-top:1px solid var(--line)}
+.facts div{padding:22px 20px 0 0}
+.facts b{display:block;font:900 clamp(44px,6vw,76px)/.9 var(--f-display);font-variant-numeric:tabular-nums}
+.facts span{font:500 12px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+@media (max-width:820px){
+  .revive>*{grid-column:1 / -1 !important}
+}
+
+/* ---------- newsletter ---------- */
+.nl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end;padding-block:56px;border-block:1px solid var(--line)}
+.nl form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) auto;gap:0;box-shadow:inset 0 0 0 1px var(--line)}
+.nl input{background:transparent;border:0;padding:18px 16px;min-width:0;outline:0;border-right:1px solid var(--line)}
+.nl input::placeholder{color:var(--smoke)}
+.nl .btn{border-radius:0}
+.nl .fine{grid-column:1 / -1;font-size:13px;color:var(--smoke);margin-top:12px}
+.done{display:flex;gap:12px;align-items:center;padding:18px 0;font-weight:500}
+.done::before{content:"✓";display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--tungsten);color:var(--tungsten-ink);font-weight:700}
+@media (max-width:820px){.nl{grid-template-columns:1fr;gap:24px}.nl form{grid-template-columns:1fr}.nl input{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* ---------- contratación ---------- */
+.hire{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px)}
+.contacts{display:grid;gap:0;margin-top:36px;border-top:1px solid var(--line)}
+.contact{padding:20px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
+.contact .eyebrow{color:var(--tungsten)}
+.contact b{font-weight:600}
+.contact .row{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center;font-family:var(--f-mono);font-size:14px;color:var(--bone)}
+.copy{background:none;border:0;cursor:pointer;color:var(--smoke);font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 0}
+.copy:hover{color:var(--tungsten)}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 20px}
+.field{display:grid;gap:8px;min-width:0}
+.field.full{grid-column:1 / -1}
+.field label,.field legend{font:500 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--smoke);padding:0}
+.field input,.field select,.field textarea{background:var(--stage);border:0;box-shadow:inset 0 -1px 0 var(--line);padding:14px 14px;border-radius:0;outline:0;width:100%;min-width:0}
+.field input:focus,.field select:focus,.field textarea:focus{box-shadow:inset 0 -2px 0 var(--tungsten)}
+.field textarea{min-height:120px;resize:vertical}
+fieldset.field{border:0;margin:0;padding:0}
+.seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:flex;flex-direction:column;gap:6px;padding:14px;box-shadow:inset 0 0 0 1px var(--line);font:800 20px/1 var(--f-display);text-transform:uppercase;letter-spacing:.03em;transition:background .2s,color .2s}
+.seg span small{font:400 12px/1.3 var(--f-body);text-transform:none;letter-spacing:0;color:var(--smoke)}
+.seg input:checked+span{background:var(--bone);color:var(--night)}
+.seg input:checked+span small{color:#4a4440}
+.seg input:focus-visible+span{outline:2px solid var(--tungsten);outline-offset:2px}
+.form .actions{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.err{color:var(--no);font-size:13px}
+@media (max-width:900px){.hire{grid-template-columns:1fr}}
+@media (max-width:560px){.form{grid-template-columns:1fr}.seg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding-block:56px 40px;margin-top:40px}
+.foot{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:32px}
+.foot-brand{display:inline-flex;align-items:center;gap:clamp(16px,2vw,28px);text-decoration:none;margin:0 0 56px;max-width:100%}
+.foot-brand img{width:clamp(64px,8vw,104px);height:auto;flex:none}
+.foot-brand b{display:block;font:900 clamp(44px,8vw,112px)/.85 var(--f-display);text-transform:uppercase;letter-spacing:.04em;color:var(--bone)}
+.foot-brand small{display:block;margin-top:10px;font:500 12px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+.foot h5{margin:0 0 14px;font:500 11px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--smoke)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot a{text-decoration:none;color:var(--bone)}
+.foot a:hover{color:var(--tungsten)}
+.partners{display:flex;gap:22px;align-items:center}
+.partners img{height:54px;width:auto;opacity:.75;filter:grayscale(1)}
+.partners img:hover{opacity:1;filter:none}
+.legal-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--smoke)}
+@media (max-width:860px){.foot{grid-template-columns:repeat(2,minmax(0,1fr))}.foot>div:first-child{grid-column:1 / -1}}
+
+/* ---------- cookies ---------- */
+.cookie{position:fixed;z-index:70;left:max(16px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));width:min(380px,calc(100% - 32px));
+  background:var(--stage);box-shadow:inset 0 0 0 1px var(--line),0 24px 60px -10px rgba(0,0,0,.8);padding:20px}
+.cookie h6{margin:0 0 6px;font:800 22px/1 var(--f-display);text-transform:uppercase}
+.cookie p{margin:0 0 16px;font-size:14px;color:var(--smoke)}
+.cookie .b{display:flex;gap:8px}
+.cookie .btn{padding:12px 14px;font-size:12px;flex:1}
+
+/* ================= SETLIST ================= */
+.sl-hero{padding-block:120px 32px;position:relative;overflow:hidden}
+.sl-hero .bgword{position:absolute;right:-2vw;top:70px;font:900 clamp(140px,26vw,380px)/.8 var(--f-display);color:transparent;-webkit-text-stroke:1px rgba(236,228,218,.08);pointer-events:none;user-select:none}
+.sl-hero h1{font-size:clamp(56px,10vw,150px)}
+.sl-hero h1 em{font-style:normal;color:var(--tungsten)}
+.steps{display:flex;gap:0;margin-top:36px;list-style:none;padding:0;border-top:1px solid var(--line);counter-reset:s;max-width:720px}
+.steps li{flex:1;padding:14px 12px 0 0;font:500 12px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--smoke);position:relative;counter-increment:s}
+.steps li::before{content:counter(s,decimal-leading-zero);display:block;font:900 30px/1 var(--f-display);margin-bottom:6px;color:rgba(236,228,218,.45)}
+.steps li.on{color:var(--bone)}
+.steps li.on::before{color:var(--tungsten)}
+.steps li.on::after{content:"";position:absolute;top:-1px;left:0;right:12px;height:2px;background:var(--tungsten)}
+.steps li.ok::before{color:var(--bone)}
+.stage{padding-block:24px 96px}
+.panel{max-width:980px}
+
+/* registro */
+.reg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.reg .why{display:grid;gap:18px;margin-top:8px}
+.reg .why div{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start}
+.reg .why i{font-style:normal;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);font:500 12px/1 var(--f-mono);color:var(--tungsten)}
+.reg form{display:grid;gap:18px;background:var(--stage);padding:28px;box-shadow:inset 0 0 0 1px var(--line)}
+.reg form .field input,.reg form .field select{background:var(--night)}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--smoke);cursor:pointer}
+.check input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--tungsten);flex:none}
+.check a{color:var(--bone)}
+.skip{background:none;border:0;color:var(--smoke);font:500 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;padding:8px 0;text-decoration:underline;text-underline-offset:4px}
+@media (max-width:820px){.reg{grid-template-columns:1fr}}
+
+/* votación */
+.vote{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:start}
+@media (max-width:900px){.vote{grid-template-columns:1fr}}
+.deck-wrap{display:grid;justify-items:center;gap:22px}
+.meta-row{width:min(420px,100%);display:flex;justify-content:space-between;align-items:center;font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+.bar{width:min(420px,100%);height:3px;background:var(--line);position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0;background:var(--tungsten);transform-origin:left;transform:scaleX(0);transition:transform .35s}
+.deck{position:relative;width:min(420px,100%);aspect-ratio:4/5;touch-action:pan-y;user-select:none}
+.card{position:absolute;inset:0;overflow:hidden;background:var(--stage);box-shadow:0 30px 70px -20px rgba(0,0,0,.9),inset 0 0 0 1px var(--line);cursor:grab;will-change:transform;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.card.dragging{transition:none;cursor:grabbing}
+.card.behind{transform:translateY(14px) scale(.95);filter:brightness(.6)}
+.card.behind2{transform:translateY(28px) scale(.9);filter:brightness(.4)}
+.card .img{position:absolute;inset:0}
+.card .img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.6)}
+.card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,9,.98) 8%,rgba(10,9,9,.35) 60%,rgba(10,9,9,.1)),var(--tint);mix-blend-mode:normal}
+.card .album{position:absolute;top:18px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center;font:500 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase}
+.card .album em{font-style:normal;padding:6px 8px;background:var(--acol);color:#0a0909}
+.card .body{position:absolute;left:22px;right:22px;bottom:22px;display:grid;gap:16px}
+.card h3{margin:0;font:900 clamp(44px,11vw,66px)/.86 var(--f-display);text-transform:uppercase;text-wrap:balance;overflow-wrap:anywhere}
+.play{display:flex;align-items:center;gap:12px;background:rgba(236,228,218,.08);border:0;box-shadow:inset 0 0 0 1px var(--line);padding:10px 14px 10px 10px;cursor:pointer;width:max-content;max-width:100%}
+.play .pb{width:34px;height:34px;border-radius:50%;background:var(--bone);color:var(--night);display:grid;place-items:center;flex:none}
+.play .pb svg{width:14px;height:14px;fill:currentColor}
+.play .txt{font:500 12px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;text-align:left}
+.eq{display:flex;gap:3px;align-items:flex-end;height:18px}
+.eq i{width:3px;background:var(--tungsten);height:30%}
+.playing .eq i{animation:eq .8s ease-in-out infinite}
+.playing .eq i:nth-child(2){animation-delay:.15s}.playing .eq i:nth-child(3){animation-delay:.3s}.playing .eq i:nth-child(4){animation-delay:.45s}
+@keyframes eq{50%{height:100%}}
+.stamp{position:absolute;top:70px;padding:8px 14px;font:900 44px/1 var(--f-display);text-transform:uppercase;border:4px solid;opacity:0;pointer-events:none}
+.stamp.yes{left:22px;color:var(--ok);transform:rotate(-12deg)}
+.stamp.no{right:22px;color:var(--no);transform:rotate(12deg)}
+.ctrls{display:flex;gap:18px;align-items:center}
+.cbtn{width:68px;height:68px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:var(--stage);box-shadow:inset 0 0 0 1px var(--line);transition:transform .15s,background .2s}
+.cbtn:hover{transform:scale(1.06)}
+.cbtn svg{width:26px;height:26px}
+.cbtn.no{color:var(--no)}.cbtn.no:hover{background:rgba(236,228,218,.08)}
+.cbtn.yes{width:80px;height:80px;color:var(--tungsten-ink);background:var(--tungsten);box-shadow:none}
+.cbtn.yes svg{width:30px;height:30px}
+.cbtn.undo{width:48px;height:48px;color:var(--smoke)}
+.cbtn.undo:disabled{opacity:.35;cursor:default;transform:none}
+.hint{font:500 11px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);text-align:center}
+kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var(--line);border-radius:3px;color:var(--bone)}
+.side{display:grid;gap:14px}
+.side h4{margin:0;font:800 26px/1 var(--f-display);text-transform:uppercase}
+.picked{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);max-height:420px;overflow:auto}
+.picked li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;animation:fadein .4s}
+.picked li span:first-child{font:500 12px/1 var(--f-mono);color:var(--smoke)}
+.picked li small{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--smoke)}
+.picked .none{display:block;color:var(--smoke);font-size:14px;padding:14px 0;grid-template-columns:none}
+
+/* resultado */
+.result{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,90px);align-items:start}
+@media (max-width:900px){.result{grid-template-columns:1fr}}
+.paper{background:var(--paper);color:var(--marker);padding:44px 40px 36px;position:relative;transform:rotate(-1.4deg);box-shadow:0 40px 80px -24px rgba(0,0,0,.9);
+  background-image:linear-gradient(transparent 0,transparent 31px,rgba(22,20,20,.06) 32px);background-size:100% 32px}
+.paper::before,.paper::after{content:"";position:absolute;top:-14px;width:110px;height:30px;background:rgba(190,180,160,.8);box-shadow:0 2px 4px rgba(0,0,0,.15)}
+.paper::before{left:-18px;transform:rotate(-30deg)}
+.paper::after{right:-18px;transform:rotate(28deg)}
+.paper .ph{font:400 14px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(22,20,20,.7);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.paper h3{margin:10px 0 18px;font:400 clamp(30px,4vw,40px)/1 var(--f-marker)}
+.paper ol{margin:0;padding-left:2em;font:400 clamp(20px,2.4vw,25px)/1.3 var(--f-marker);columns:1}
+.paper ol li{padding:1px 0}
+.paper ol li::marker{font-size:.75em;color:rgba(22,20,20,.6)}
+.paper .sig{margin-top:22px;font:400 18px/1 var(--f-marker);color:rgba(22,20,20,.5);text-align:right}
+.result .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.toast{font-size:14px;color:var(--tungsten);min-height:1.5em;margin-top:10px}
+.rank{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px}
+.rank li{display:grid;grid-template-columns:28px minmax(0,1fr) 48px;gap:12px;align-items:center;font-size:15px}
+.rank li > span:first-child{font:500 12px/1 var(--f-mono);color:var(--smoke)}
+.rank .m{height:6px;background:var(--line);grid-column:2;position:relative;margin-top:-4px}
+.rank .m i{position:absolute;inset:0 auto 0 0;background:var(--bone)}
+.rank li.mine .m i{background:var(--tungsten)}
+.rank b{font:500 12px/1 var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.tag-ej{display:inline-block;font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);box-shadow:inset 0 0 0 1px var(--line);padding:5px 7px;margin-left:8px;vertical-align:middle}
+
+/* ================= LEGAL ================= */
+.legal{padding-block:130px 80px}
+.legal-grid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start;margin-top:48px}
+.toc{position:sticky;top:100px;display:grid;gap:4px;border-left:1px solid var(--line);padding-left:16px}
+.toc a{font-size:14px;color:var(--smoke);text-decoration:none;padding:4px 0}
+.toc a:hover{color:var(--bone)}
+.legal h1{font-size:clamp(56px,9vw,120px)}
+.prose{max-width:68ch;font-size:16px;line-height:1.7;color:#d9d1c7}
+.prose h2{font:800 30px/1.05 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--bone);margin:48px 0 14px;scroll-margin-top:100px}
+.prose h2:first-child{margin-top:0}
+.prose p{margin:0 0 14px}
+.prose dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 20px;margin:0 0 18px;padding:18px 20px;background:var(--stage);box-shadow:inset 0 0 0 1px var(--line);font-size:14px}
+.prose dt{font:500 11px/1.9 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--smoke)}
+.prose dd{margin:0;overflow-wrap:anywhere}
+.prose ul{padding-left:1.2em;margin:0 0 14px}
+@media (max-width:860px){.legal-grid{grid-template-columns:1fr}.toc{position:static}.prose dl{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<!-- ============ HEADER ============ -->
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Cientocero, inicio"><img src="img/logo.png" alt=""><span>Cientocero</span></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#conciertos" data-nav="conciertos">Conciertos</a>
+      <a href="#setlist" data-nav="setlist">Tú haces el setlist</a>
+      <a href="#contratacion" data-nav="contratacion">Contratación</a>
+    </nav>
+    <div class="social" aria-label="Redes sociales">
+      <a href="https://www.instagram.com/cientocero_oficial/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2A3.2 3.2 0 1 1 12 8.8a3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM21.9 7.1c-.1-1.6-.4-3-1.6-4.2S17.6 1.3 16 1.2C14.4 1.1 9.6 1.1 8 1.2c-1.6.1-3 .4-4.2 1.6S2.2 5.5 2.1 7.1C2 8.7 2 13.4 2.1 15c.1 1.6.4 3 1.6 4.2s2.6 1.5 4.2 1.6c1.6.1 6.4.1 8 0 1.6-.1 3-.4 4.2-1.6s1.5-2.6 1.6-4.2c.1-1.6.1-6.3 0-7.9zm-2 9.6a3.3 3.3 0 0 1-1.8 1.8c-1.3.5-4.3.4-5.7.4s-4.4.1-5.7-.4A3.3 3.3 0 0 1 4.9 16.7c-.5-1.3-.4-4.3-.4-5.7s-.1-4.4.4-5.7a3.3 3.3 0 0 1 1.8-1.8c1.3-.5 4.3-.4 5.7-.4s4.4-.1 5.7.4a3.3 3.3 0 0 1 1.8 1.8c.5 1.3.4 4.3.4 5.7s.1 4.4-.4 5.7z"/></svg></a>
+      <a href="#" aria-label="Facebook (enlace pendiente)"><svg viewBox="0 0 24 24"><path d="M14 8.5V6.6c0-.9.6-1.1 1-1.1h2.5V1.6L14 1.5c-3.8 0-4.6 2.8-4.6 4.6v2.4H7v4h2.4V22.5H14V12.5h3.1l.4-4H14z"/></svg></a>
+      <a href="#" aria-label="YouTube (enlace pendiente)"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15V9l5.8 3-5.8 3z"/></svg></a>
+    </div>
+    <a class="btn btn-lamp" href="#conciertos">Entradas</a>
+    <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" id="burger"><i></i><i></i><i></i></button>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <span class="eyebrow">Menú</span>
+  <a class="big" href="#conciertos">Conciertos</a>
+  <a class="big" href="#setlist">Tú haces el setlist</a>
+  <a class="big" href="#contratacion">Contratación</a>
+  <a class="btn btn-lamp" href="#conciertos" style="justify-self:start;width:max-content;margin-top:24px">Comprar entradas</a>
+</div>
+
+<main>
+<!-- ================= HOME ================= -->
+<div class="view" id="v-inicio" data-view="inicio">
+  <section class="hero" aria-labelledby="h-hero">
+    <div class="bg"><img src="img/directo-bn.jpg" alt="Cientocero en directo, de espaldas al público, con los focos encendidos"></div>
+    <div class="wrap">
+      <div class="hero-kicker"><span class="dot" aria-hidden="true"></span><span class="eyebrow" style="color:var(--bone)">Gira 2027 · <span data-count>22</span> ciudades</span><span class="eyebrow">Cientocero · Tributo a Supersubmarina</span></div>
+      <h1 class="display" id="h-hero"><span class="ln"><span>Revive</span></span><span class="ln"><span>la experiencia</span></span></h1>
+      <div class="hero-sub">
+        <p>Las canciones de Supersubmarina, tocadas como se merecen: <b>alto, en directo y con la sala cantando cada estribillo.</b> Volvemos a la carretera de enero a mayo.</p>
+        <a class="nextshow" id="nextshow" href="#conciertos"></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div class="track" id="ticker"></div></div>
+
+  <!-- CONCIERTOS -->
+  <section class="block" id="conciertos" aria-labelledby="h-conc">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <div class="eyebrow">Próximos conciertos</div>
+          <h2 class="display" id="h-conc">Gira 2027</h2>
+        </div>
+        <p class="muted" style="margin:0;max-width:26em">Elige tu ciudad y consigue la entrada antes de que vuele. Iremos sumando fechas: si tu ciudad no está, apúntate abajo y te avisamos primero.</p>
+      </div>
+      <div class="filters" role="toolbar" aria-label="Filtrar conciertos">
+        <div id="chips" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="sr">Buscar ciudad o sala</span><input id="q" type="search" placeholder="Busca tu ciudad o sala" autocomplete="off"></label>
+      </div>
+      <ol class="shows" id="shows"></ol>
+      <div class="shows-foot">
+        <span class="eyebrow">+ Más fechas por confirmar</span>
+        <a class="btn btn-ghost" href="#avisos">Avísame de nuevas fechas <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO SETLIST -->
+  <section class="promo" aria-labelledby="h-promo">
+    <div class="bg"><img src="img/escenario.jpg" alt="" loading="lazy"></div>
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Tú haces el setlist</div>
+        <h2 class="display" id="h-promo" style="font-size:clamp(52px,8vw,112px)">Tú decides<br>qué suena</h2>
+        <p class="lead">37 canciones, un solo concierto. Escucha un trozo de cada una, quédate con las que no pueden faltar y saldrán en el repertorio de la gira.</p>
+        <a class="btn btn-lamp" href="#setlist">Hacer mi setlist <span class="arrow">→</span></a>
+      </div>
+      <div class="mini-paper" aria-hidden="true">
+        <h4>Setlist · Gira 27</h4>
+        <ol><li>Cientocero</li><li>Ana</li><li>Hermética</li><li>Viento de cara</li><li class="q">¿…?</li><li class="q">¿…?</li></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIVE -->
+  <section class="block" aria-labelledby="h-rev">
+    <div class="wrap">
+      <div class="revive">
+        <div class="t">
+          <div class="eyebrow">La experiencia</div>
+          <h2 class="display" id="h-rev" style="font-size:clamp(48px,7vw,100px)">Como aquella noche, otra vez</h2>
+          <p class="lead">Cinco músicos de Jaén y alrededores, una banda que nos cambió la adolescencia y un objetivo: que vuelvas a vivir un concierto de Supersubmarina. Mismo sonido, mismas guitarras, y el público poniendo el resto.</p>
+        </div>
+        <figure class="ph ph1"><img src="img/grupo.jpg" alt="Los cinco miembros de Cientocero posando al atardecer" loading="lazy"><figcaption>Cientocero, 2027</figcaption></figure>
+        <figure class="ph ph2"><img src="img/voz.jpg" alt="El cantante de Cientocero con guitarra en el escenario" loading="lazy"><figcaption>© Óscar Lugo · Cooltural</figcaption></figure>
+        <div class="t2">
+          <p class="muted" style="margin:0">De <em>Realimentación</em> a <em>Viento de cara</em>: un repaso a toda la discografía, con los himnos que todo el mundo espera y alguna que hacía años que nadie tocaba.</p>
+        </div>
+      </div>
+      <div class="facts">
+        <div><b data-count>22</b><span>Fechas en 2027</span></div>
+        <div><b>37</b><span>Canciones en juego</span></div>
+        <div><b>5</b><span>Meses de gira</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="wrap" id="avisos" aria-labelledby="h-nl">
+    <div class="nl">
+      <div>
+        <div class="eyebrow">Primera fila</div>
+        <h2 class="display" id="h-nl" style="font-size:clamp(44px,6vw,80px)">No te quedes sin entrada</h2>
+        <p class="muted" style="margin:16px 0 0;max-width:30em">Nuevas fechas, preventas y alguna sorpresa. Te escribimos poco y solo cuando merece la pena.</p>
+      </div>
+      <div id="nl-box">
+        <form id="nl-form" novalidate>
+          <label class="sr" for="nl-name">Nombre</label><input id="nl-name" placeholder="Tu nombre" autocomplete="given-name">
+          <label class="sr" for="nl-mail">Correo electrónico</label><input id="nl-mail" type="email" placeholder="tu@correo.com" autocomplete="email" required>
+          <button class="btn btn-lamp" type="submit">Apuntarme</button>
+          <p class="fine">Al apuntarte aceptas la <a href="#privacidad">política de privacidad</a>. Te puedes dar de baja cuando quieras. <span class="err" id="nl-err"></span></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRATACIÓN -->
+  <section class="block" id="contratacion" aria-labelledby="h-hire">
+    <div class="wrap hire">
+      <div>
+        <div class="eyebrow">Contratación</div>
+        <h2 class="display" id="h-hire" style="font-size:clamp(52px,8vw,110px)">Llévanos a tu escenario</h2>
+        <p class="muted" style="margin:20px 0 0;max-width:28em">Salas, festivales, fiestas patronales o un evento privado. Cuéntanos qué tienes en mente y te respondemos en menos de 48 horas.</p>
+        <div class="contacts">
+          <div class="contact"><span class="eyebrow">Booking · Salas y festivales</span><b>Crash Music</b><div class="row"><span>miguel@crashmusic.es</span><button class="copy" data-copy="miguel@crashmusic.es">Copiar</button><span>653 607 328</span></div></div>
+          <div class="contact"><span class="eyebrow">Management</span><b>Cientocero</b><div class="row"><span>booking@cientocero.es</span><button class="copy" data-copy="booking@cientocero.es">Copiar</button><span>614 826 709</span></div></div>
+          <div class="contact"><span class="eyebrow">Institucional · Ayuntamientos</span><b>Carver Espectáculos</b><div class="row"><span>jcarrion@carverespectaculos.com</span><button class="copy" data-copy="jcarrion@carverespectaculos.com">Copiar</button><span>658 987 161</span></div></div>
+        </div>
+      </div>
+      <div id="hire-box">
+        <form class="form" id="hire-form" novalidate>
+          <fieldset class="field full">
+            <legend>¿Qué tipo de evento es?</legend>
+            <div class="seg">
+              <label><input type="radio" name="tipo" value="Sala" id="t-sala" checked><span>Sala<small>Gira o fecha suelta</small></span></label>
+              <label><input type="radio" name="tipo" value="Festival" id="t-fest"><span>Festival<small>Cartel o escenario</small></span></label>
+              <label><input type="radio" name="tipo" value="Ayuntamiento" id="t-ayto"><span>Ayto.<small>Fiestas y ferias</small></span></label>
+              <label><input type="radio" name="tipo" value="Privado" id="t-priv"><span>Privado<small>Bodas, empresa…</small></span></label>
+            </div>
+          </fieldset>
+          <div class="field"><label for="h-name">Nombre y apellidos</label><input id="h-name" autocomplete="name" required></div>
+          <div class="field"><label for="h-mail">Email</label><input id="h-mail" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="h-tel">Teléfono</label><input id="h-tel" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="h-date">Fecha aproximada</label><input id="h-date" type="date"></div>
+          <div class="field full"><label for="h-place">Lugar</label><input id="h-place" placeholder="Ciudad, recinto o sala"></div>
+          <div class="field full"><label for="h-msg">Cuéntanos más</label><textarea id="h-msg" placeholder="Aforo, horario, si hay backline…"></textarea></div>
+          <div class="actions">
+            <label class="check"><input type="checkbox" id="h-ok"> <span>He leído la <a href="#privacidad">política de privacidad</a></span></label>
+            <button class="btn btn-lamp" type="submit">Enviar solicitud <span class="arrow">→</span></button>
+            <span class="err" id="hire-err" style="flex-basis:100%"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SETLIST ================= -->
+<div class="view" id="v-setlist" data-view="setlist">
+  <section class="sl-hero">
+    <div class="bgword" aria-hidden="true">110</div>
+    <div class="wrap">
+      <h1 class="display">¿Qué quieres<br><em>escuchar?</em></h1>
+      <ol class="steps" id="steps"><li data-s="reg">Regístrate</li><li data-s="vote">Vota canciones</li><li data-s="done">Tu setlist</li></ol>
+    </div>
+  </section>
+  <section class="stage">
+    <div class="wrap">
+      <!-- paso 1 -->
+      <div class="panel reg" id="p-reg">
+        <div>
+          <p class="lead" style="margin-top:0">Te ponemos un trozo de cada canción. Desliza a la derecha las que tienen que sonar y a la izquierda las que puedes perdonar. Con los votos de todas las ciudades montamos el repertorio.</p>
+          <div class="why">
+            <div><i>1</i><span>Solo te pedimos email y provincia, para contar un voto por persona y saber qué se pide en cada ciudad.</span></div>
+            <div><i>2</i><span>37 canciones, unos 3 minutos. Puedes deshacer el último voto si te equivocas.</span></div>
+            <div><i>3</i><span>Al final tienes tu setlist para compartir y ves lo más votado hasta ahora.</span></div>
+          </div>
+        </div>
+        <form id="reg-form" novalidate>
+          <div class="field"><label for="r-mail">Email</label><input id="r-mail" type="email" placeholder="tu@correo.com" autocomplete="email" required></div>
+          <div class="field"><label for="r-prov">Provincia</label><select id="r-prov" required><option value="">Elige tu provincia</option></select></div>
+          <div class="field"><label for="r-city">Ciudad <span style="text-transform:none;letter-spacing:0">(opcional)</span></label><input id="r-city" autocomplete="address-level2"></div>
+          <label class="check"><input type="checkbox" id="r-ok"><span>Acepto la <a href="#privacidad">política de privacidad</a></span></label>
+          <span class="err" id="reg-err"></span>
+          <button class="btn btn-lamp" type="submit">Empezar a votar <span class="arrow">→</span></button>
+          <button class="skip" type="button" id="skip">Saltar registro (solo en la maqueta)</button>
+        </form>
+      </div>
+
+      <!-- paso 2 -->
+      <div class="panel vote" id="p-vote" hidden>
+        <div class="deck-wrap">
+          <div class="meta-row"><span id="count">1 / 37</span><span id="yescount">0 elegidas</span></div>
+          <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+          <div class="deck" id="deck" aria-live="polite"></div>
+          <div class="ctrls">
+            <button class="cbtn undo" id="b-undo" type="button" aria-label="Deshacer último voto" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
+            <button class="cbtn no" id="b-no" type="button" aria-label="No, esta no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            <button class="cbtn yes" id="b-yes" type="button" aria-label="Sí, que suene"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg></button>
+          </div>
+          <div class="hint">Desliza la tarjeta o usa <kbd>←</kbd> <kbd>→</kbd></div>
+        </div>
+        <aside class="side">
+          <div class="eyebrow">Tu setlist provisional</div>
+          <h4><span id="pk-n">0</span> canciones</h4>
+          <ol class="picked" id="picked"><li class="none">Las que marques con ♥ aparecerán aquí, en orden.</li></ol>
+          <button class="skip" type="button" id="finish">Terminar ya y ver mi setlist</button>
+        </aside>
+      </div>
+
+      <!-- paso 3 -->
+      <div class="panel result" id="p-done" hidden>
+        <div>
+          <div class="paper" id="paper">
+            <div class="ph"><span>Cientocero · Gira 2027</span><span id="paper-city"></span></div>
+            <h3>Mi setlist</h3>
+            <ol id="paper-list"></ol>
+            <div class="sig">— que suene alto</div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Voto enviado</div>
+          <h2 class="display" style="font-size:clamp(48px,6vw,84px)">Gracias, ya cuenta</h2>
+          <p class="lead">Tu voto entra en el recuento de tu provincia. Comparte tu setlist y reta a tu grupo a hacer el suyo.</p>
+          <div class="actions">
+            <button class="btn btn-lamp" type="button" id="share">Copiar para compartir</button>
+            <button class="btn btn-ghost" type="button" id="again">Votar otra vez</button>
+          </div>
+          <div class="toast" id="toast" role="status"></div>
+          <div style="margin-top:40px">
+            <div class="eyebrow">Lo más pedido hasta ahora <span class="tag-ej">Datos de ejemplo</span></div>
+            <ol class="rank" id="rank"></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= LEGAL ================= -->
+<div class="view" id="v-aviso-legal" data-view="aviso-legal">
+  <section class="legal"><div class="wrap">
+    <h1 class="display">Aviso legal</h1>
+    <div class="legal-grid"><nav class="toc" aria-label="Apartados" data-toc></nav><article class="prose"><h2>Identificación y Titularidad</h2>
+<p>En cumplimiento del artículo 10 de la Ley 34 / 2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico, el Titular expone sus datos identificativos.</p>
+<dl><dt>Titular</dt><dd>PRODUCCIONES MUSICALES CIENTOCERO SL</dd><dt>Registro mercantil</dt><dd>Inscrita en el Registro Mercantil de MURCIA, inscripción 1, Sección 8, Hoja MU/119410</dd><dt>NIF</dt><dd>B26947028</dd><dt>Domicilio</dt><dd>C/ Párroco Germán Arias 1 2D</dd><dt>Correo electrónico</dt><dd>info@cientocero.es</dd><dt>Sitio Web</dt><dd>www.cientocero.es</dd></dl>
+<h2>Finalidad</h2>
+<p>La finalidad del sitio Web cientocero.es es informar sobre los eventos de Cientocero y diferentes aspectos con los que se relaciona.</p>
+<h2>Condiciones de Uso</h2>
+<p>La utilización del sitio Web le otorga la condición de Usuario, e implica la aceptación completa de todas las cláusulas y condiciones de uso. Si no estuviera conforme con todas y cada una de estas cláusulas y condiciones absténgase de utilizar este sitio Web.</p>
+<p>El acceso a este sitio Web no supone, en modo alguno, el inicio de una relación comercial con el Titular.</p>
+<p>A través de este sitio Web, el Titular le facilita el acceso y la utilización de diversos contenidos que el Titular o sus colaboradores han publicado por medio de Internet.</p>
+<p>A tal efecto, usted está obligado y comprometido a NO utilizar cualquiera de los contenidos del sitio Web con fines o efectos ilícitos, prohibidos en este Aviso Legal o por la legislación vigente, lesivos de los derechos e intereses de terceros, o que de cualquier forma puedan dañar, inutilizar, sobrecargar, deteriorar o impedir la normal utilización de los contenidos, los equipos informáticos o los documentos, archivos y toda clase de contenidos almacenados en cualquier equipo informático propios o contratados por el Titular, de otros usuarios o de cualquier usuario de Internet.</p>
+<h2>Medidas de seguridad</h2>
+<p>Los datos personales que facilite al Titular pueden ser almacenados en bases de datos automatizadas o no, cuya titularidad corresponde en exclusiva a el Titular, que asume todas las medidas de índole técnica, organizativa y de seguridad que garantizan la confidencialidad, integridad y calidad de la información contenida en las mismas de acuerdo con lo establecido en la normativa vigente en protección de datos.</p>
+<p>No obstante, debe ser consciente de que las medidas de seguridad de los sistemas informáticos en Internet no son enteramente fiables y que, por tanto el Titular no puede garantizar la inexistencia de virus u otros elementos que puedan producir alteraciones en los sistemas informáticos (software y hardware) del Usuario o en sus documentos electrónicos y ficheros contenidos en los mismos aunque el Titular pone todos los medios necesarios y toma las medidas de seguridad oportunas para evitar la presencia de estos elementos dañinos.</p>
+<h2>Datos personales y Política de Privacidad</h2>
+<p>Usted puede consultar toda la información relativa al tratamiento de datos personales que recoge el Titular en la página de la Política de Privacidad.</p>
+<h2>Contenidos</h2>
+<p>El Titular ha obtenido la información, el contenido multimedia y los materiales incluidos en el sitio Web de fuentes que considera fiables, pero, si bien ha tomado todas las medidas razonables para asegurar que la información contenida es correcta, el Titular no garantiza que sea exacta, completa o actualizada. El Titular declina expresamente cualquier responsabilidad por error u omisión en la información contenida en las páginas de este sitio Web.</p>
+<p>Queda prohibido transmitir o enviar a través del sitio Web cualquier contenido ilegal o ilícito, virus informáticos, o mensajes que, en general, afecten o violen derechos de el Titular o de terceros.</p>
+<p>Los contenidos del Sitio Web tienen únicamente una finalidad informativa y bajo ninguna circunstancia deben usarse ni considerarse como oferta de venta, solicitud de una oferta de compra ni recomendación para realizar cualquier otra operación, salvo que así se indique expresamente. El Titular se reserva el derecho a modificar, suspender, cancelar o restringir el contenido del Sitio Web, los vínculos o la información obtenida a través del sitio Web, sin necesidad de previo aviso.</p>
+<p>El Titular no es responsable de los daños y perjuicios que pudieran derivarse de la utilización de la información del sitio Web o de la contenida en las redes sociales del Titular.</p>
+<h2>Propiedad intelectual e industrial</h2>
+<p>Todos los derechos están reservados.</p>
+<p>Todo acceso a este sitio Web está sujeto a las siguientes condiciones: la reproducción, almacenaje permanente y la difusión de los contenidos o cualquier otro uso que tenga finalidad pública o comercial queda expresamente prohibida sin el consentimiento previo expreso y por escrito de Titular.</p>
+<h2>Limitación de responsabilidad</h2>
+<p>La información y servicios incluidos o disponibles a través de este sitio Web pueden incluir incorrecciones o errores tipográficos. De forma periódica el Titular incorpora mejoras y/o cambios a la información contenida y/o los Servicios que puede introducir en cualquier momento.</p>
+<p>El Titular no declara ni garantiza que los servicios o contenidos sean interrumpidos o que estén libres de errores, que los defectos sean corregidos, o que el servicio o el servidor que lo pone a disposición estén libres de virus u otros componentes nocivos sin perjuicio de que el Titular realiza todos los esfuerzos en evitar este tipo de incidentes.</p>
+<p>Titular declina cualquier responsabilidad en caso de que existan interrupciones o un mal funcionamiento de los Servicios o contenidos ofrecidos en Internet, cualquiera que sea su causa. Asimismo, el Titular no se hace responsable por caídas de la red, pérdidas de negocio a consecuencia de dichas caídas, suspensiones temporales de fluido eléctrico o cualquier otro tipo de daño indirecto que te pueda ser causado por causas ajenas a el Titular.</p>
+<p>Antes de tomar decisiones y/o acciones con base a la información incluida en el sitio Web, el Titular le recomienda comprobar y contrastar la información recibida con otras fuentes.</p>
+<h2>Jurisdicción</h2>
+<p>Este Aviso Legal se rige íntegramente por la legislación española.</p>
+<p>Siempre que no haya una norma que obligue a otra cosa, para cuantas cuestiones se susciten sobre la interpretación, aplicación y cumplimiento de este Aviso Legal, así como de las reclamaciones que puedan derivarse de su uso. Para cuantas cuestiones se susciten sobre la interpretación, aplicación y cumplimiento de este Aviso Legal, así como de las reclamaciones que puedan derivarse de su uso, serán competentes los juzgados y tribunales que correspondan conforme a la normativa vigente aplicable.</p>
+<h2>Contacto</h2>
+<p>En caso de que usted tenga cualquier duda acerca de estas Condiciones legales o quiera realizar cualquier comentario sobre este sitio Web, puede enviar un mensaje de correo electrónico a info@cientocero.es o contactar en el teléfono 614 82 67 09.</p></article></div>
+  </div></section>
+</div>
+<div class="view" id="v-privacidad" data-view="privacidad">
+  <section class="legal"><div class="wrap">
+    <h1 class="display">Política de privacidad</h1>
+    <div class="legal-grid"><nav class="toc" aria-label="Apartados" data-toc></nav><article class="prose"><p>PRODUCCIONES MUSICALES CIENTOCERO SL , en adelante EL TITULAR, te informa sobre su Política de Privacidad respecto del tratamiento y protección de los datos de carácter personal de los usuarios y clientes que puedan ser recabados por la navegación o contratación de servicios a través del sitio Web www.cientocero.es.</p>
+<p>En este sentido, el Titular garantiza el cumplimiento de la normativa vigente en materia de protección de datos personales, reflejada en la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y de Garantía de Derechos Digitales (LOPD GDD). Cumple también con el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas (RGPD).</p>
+<p>El uso de sitio Web implica la aceptación de esta Política de Privacidad, así como las condiciones incluidas en el Aviso Legal.</p>
+<h2>Identidad del responsable</h2>
+<dl><dt>Titular</dt><dd>PRODUCCIONES MUSICALES CIENTOCERO SL</dd><dt>Registro mercantil</dt><dd>Inscrita en el Registro Mercantil de MURCIA, inscripción 1, Sección 8, Hoja MU/119410</dd><dt>NIF</dt><dd>B26947028</dd><dt>Domicilio</dt><dd>C/ Párroco Germán Arias 1 2D</dd><dt>Correo electrónico</dt><dd>info@cientocero.es</dd><dt>Sitio Web</dt><dd>www.cientocero.es</dd></dl>
+<h2>Principios aplicados en el tratamiento de datos</h2>
+<p>En el tratamiento de tus datos personales, el Titular aplicará los siguientes principios:</p>
+<p>Principio de licitud, lealtad y transparencia: El Titular siempre requerirá el consentimiento para el tratamiento de tus datos personales que puede ser para uno o varios fines específicos sobre los que te informará previamente con absoluta transparencia.</p>
+<p>Principio de minimización de datos: El Titular te solicitará solo los datos estrictamente necesarios para el fin o los fines que los solicita.</p>
+<p>Principio de limitación del plazo de conservación: Los datos se mantendrán durante el tiempo estrictamente necesario para el fin o los fines del tratamiento.El Titular te informará del plazo de conservación correspondiente según la finalidad. En el caso de suscripciones, el Titular revisará periódicamente las listas y eliminará aquellos registros inactivos durante un tiempo considerable.</p>
+<p>Principio de integridad y confidencialidad: Tus datos serán tratados de tal manera que su seguridad, confidencialidad e integridad esté garantizada. Debes saber que el Titular toma las precauciones necesarias para evitar el acceso no autorizado o uso indebido de los datos de sus usuarios por parte de terceros.</p>
+<h2>Obtención de datos personales</h2>
+<p>Para navegar en esta web no es necesario que facilites ningún dato personal.</p>
+<p>Si se requiere proporcionar datos de carácter personal en los siguientes casos:</p>
+<p>Al adquirir un producto y/o servicio comercializado en esta web.</p>
+<p>Al contactar a través de los formularios de contacto o enviar un correo electrónico.</p>
+<h2>Tus derechos</h2>
+<p>El Titular te informa que sobre tus datos personales tienes derecho a:</p>
+<p>Solicitar el acceso a los datos almacenados.</p>
+<p>Solicitar una rectificación o la cancelación.</p>
+<p>Solicitar la limitación de su tratamiento.</p>
+<p>Oponerte al tratamiento.</p>
+<p>Solicitar la portabilidad de tus datos.</p>
+<p>El ejercicio de estos derechos es personal y por tanto debe ser ejercido directamente por el interesado, solicitándolo directamente al Titular, lo que significa que cualquier cliente, suscriptor o colaborador que haya facilitado sus datos en algún momento puede dirigirse al Titular y pedir información sobre los datos que tiene almacenados y cómo los ha obtenido, solicitar la rectificación de los mismos, solicitar la portabilidad de sus datos personales, oponerse al tratamiento, limitar su uso o solicitar la cancelación de esos datos en los ficheros del Titular.</p>
+<p>Para ejercitar tus derechos de acceso, rectificación, cancelación, portabilidad y oposición tienes que enviar un correo electrónico a info@cientocero.es junto con la prueba válida en derecho como una fotocopia del D.N.I. o equivalente.</p>
+<p>Tienes derecho a la tutela judicial efectiva y a presentar una reclamación ante la autoridad de control, en este caso, la Agencia Española de Protección de Datos, si consideras que el tratamiento de datos personales que te conciernen infringe el Reglamento.</p>
+<h2>Finalidad del tratamiento de datos personales</h2>
+<p>El Titular tiene plena conciencia del uso y tratamiento que se debe dar a los datos personales que se puedan requerir o que se puedan obtener de los Usuarios en su Sitio Web con el fin de gestionar los servicios ofrecidos o para remitirles comunicaciones comerciales de productos o servicios que puedan resultar de su interés (y que se han aceptado de forma explícita) y para la que expresamente se da el consentimiento como se describe en el Aviso Legal, en la Política de Cookies y en la presente Política de Privacidad.</p>
+<p>Formulario de compra/inscripción: el Titular solicita los datos personales con el fin de contactar con el comprador o destinatario del producto/servicio y formalizar su entrega. Con ello, también se aceptan aquellas condiciones de uso, políticas de privacidad y normativas de acceso que pertenezcan a la plataforma/sosftware que se utilice para tal fin.</p>
+<p>Formularios de contacto: el Titular solicita datos personales con la finalidad de responder a tus consultas (mensajes, dudas, quejas, comentarios o inquietudes).</p>
+<p>Para apoyar y mejorar los servicios que ofrece este sitio Web.</p>
+<p>Para analizar la navegación. El Titular recoge otros datos no identificativos que se obtienen mediante el uso de cookies que se descargan en tu ordenador cuando navegas por el sitio Web cuyas características y finalidad están detalladas en la Política de Cookies.</p>
+<p>Para gestionar las redes sociales. El Titular tiene presencia en redes sociales. Si te haces seguidor en las redes sociales del Titular el tratamiento de los datos personales se regirá por este apartado, así como por aquellas condiciones de uso, políticas de privacidad y normativas de acceso que pertenezcan a la red social que proceda en cada caso y que has aceptado previamente. Sin embargo, no se contactará para fines comerciales.</p>
+<h2>Seguridad de los datos personales</h2>
+<p>Para proteger tus datos personales, el Titular toma todas las precauciones razonables y sigue las mejores prácticas de la industria para evitar su pérdida, mal uso, acceso indebido, divulgación, alteración o destrucción de los mismos.</p>
+<h2>Contenido de otros sitios web</h2>
+<p>Las páginas de este sitio Web pueden incluir contenido incrustado (por ejemplo, vídeos, imágenes, artículos, etc.). El contenido incrustado de otras webs se comporta exactamente de la misma manera que si hubieras visitado la otra web.</p>
+<p>Estos sitios Web pueden recopilar datos sobre ti, utilizar cookies, incrustar un código de seguimiento adicional de terceros, y supervisar tu interacción usando este código.</p>
+<h2>Política de Cookies</h2>
+<p>Para que este sitio Web funcione correctamente necesita utilizar cookies, que es una información que se almacena en tu navegador web.</p>
+<p>En la página Política de Cookies puedes consultar toda la información relativa a la política de recogida, la finalidad y el tratamiento de las cookies.</p>
+<h2>Legitimación para el tratamiento de datos</h2>
+<p>La base legal para el tratamiento de tus datos es: el consentimiento.</p>
+<p>Para contactar con el Titular, suscribirte a un boletín, realizar comentarios o una compra en este sitio Web tienes que aceptar la presente Política de Privacidad.</p>
+<h2>Categorías de datos personales</h2>
+<p>Las categorías de datos personales que trata el Titular son:</p>
+<h2>Datos identificativos</h2>
+<h2>Conservación de datos personales</h2>
+<p>Los datos personales que proporciones al Titular se conservarán hasta que solicites su supresión o el máximo legal.</p>
+<h2>Exactitud y veracidad de los datos personales</h2>
+<p>Te comprometes a que los datos facilitados al Titular sean correctos, completos, exactos y vigentes, así como a mantenerlos debidamente actualizados.</p>
+<p>Como Usuario del sitio Web eres el único responsable de la veracidad y corrección de los datos que remitas al sitio exonerando a el Titular de cualquier responsabilidad al respecto.</p>
+<h2>Aceptación y consentimiento</h2>
+<p>Como Usuario del sitio Web declaras haber sido informado de las condiciones sobre protección de datos de carácter personal, aceptas y consientes el tratamiento de los mismos por parte de el Titular en la forma y para las finalidades indicadas en esta Política de Privacidad.</p>
+<h2>Revocabilidad</h2>
+<p>Para ejercitar tus derechos de acceso, rectificación, cancelación, portabilidad y oposición tienes que enviar un correo electrónico a info@cientocero.es junto con la prueba válida en derecho como una fotocopia del D.N.I. o equivalente.</p>
+<p>El ejercicio de tus derechos no incluye ningún dato que el Titular esté obligado a conservar con fines administrativos, legales o de seguridad.</p>
+<h2>Cambios en la Política de Privacidad</h2>
+<p>El Titular se reserva el derecho a modificar la presente Política de Privacidad para adaptarla a novedades legislativas o jurisprudenciales, así como a prácticas de la industria.</p>
+<p>Estas políticas estarán vigentes hasta que sean modificadas por otras debidamente publicadas.</p>
+<h2>Cesiones de Datos</h2>
+<p>Los datos personales que nos facilite podrán ser comunicados a las entidades pertenecientes a PRODUCCIONES MUSICALES CIENTOCERO SL y a las entidades de su grupo, con la finalidad de gestionar correctamente los servicios solicitados, así como para informarle sobre productos y servicios que puedan ofrecerse en el futuro.</p>
+<p>En particular, dichos datos podrán ser comunicados a las siguientes entidades:</p>
+<p><strong>PRODUCCIONES MUSICALES CIENTOCERO SL</strong></p>
+<p><strong>ASOCIACIÓN MUSICAL LÜCKY DÜCKES</strong></p></article></div>
+  </div></section>
+</div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <a class="foot-brand" href="#inicio" aria-label="Cientocero, volver al inicio"><img src="img/logo.png" alt=""><span><b>Cientocero</b><small>Tributo a Supersubmarina</small></span></a>
+    <div class="foot">
+      <div>
+        <h5>Una producción de</h5>
+        <div class="partners">
+          <a href="https://crashmusic.es" target="_blank" rel="noopener"><img src="img/crash.png" alt="Crash Music"></a>
+          <a href="https://carverespectaculos.com" target="_blank" rel="noopener"><img src="img/carver.png" alt="Carver Espectáculos"></a>
+        </div>
+      </div>
+      <div><h5>Web</h5><ul><li><a href="#conciertos">Conciertos</a></li><li><a href="#setlist">Tú haces el setlist</a></li><li><a href="#contratacion">Contratación</a></li></ul></div>
+      <div><h5>Síguenos</h5><ul><li><a href="https://www.instagram.com/cientocero_oficial/" target="_blank" rel="noopener">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">YouTube</a></li></ul></div>
+      <div><h5>Legal</h5><ul><li><a href="#aviso-legal">Aviso legal</a></li><li><a href="#privacidad">Política de privacidad</a></li><li><a href="#" id="open-cookies">Cookies</a></li></ul></div>
+    </div>
+    <div class="legal-row"><span>© 2026 Producciones Musicales Cientocero S.L.</span><span>Tributo a Supersubmarina. Cientocero no está vinculado a la banda original.</span></div>
+  </div>
+</footer>
+
+<div class="cookie" id="cookie" role="dialog" aria-labelledby="ck-t" hidden>
+  <h6 id="ck-t">¿Qué cookie vas hoy?</h6>
+  <p>Usamos cookies propias y de terceros para que la web funcione, medir visitas y enseñarte publicidad acorde a lo que ves. Tú eliges.</p>
+  <div class="b"><button class="btn btn-ghost" type="button" data-ck>Rechazar</button><button class="btn btn-lamp" type="button" data-ck>Aceptar</button></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+/* ---------- datos ---------- */
+// Para añadir fechas basta con sumar líneas a esta lista. estado: "" | "ultimas" | "agotado"
+var SHOWS = [
+ ["2027-01-08","Salamanca","Sala Camelot","https://entradas.crashmusic.es/event/concierto-cientocero-tributo-supersubmarina-salamanca-camelot-club-viernes-8-de-enero"],
+ ["2027-01-09","Toledo","Círculo de Arte","https://entradas.crashmusic.es/event/concierto-cientocero-tributo-supersubmarina-toledo-sala-circulo-de-arte-sabado-9-de-enero"],
+ ["2027-01-15","La Eliana","Sala Fantāstic","https://entradas.cientocero.es/CIENTOCERO/fantastic-2027/","Valencia"],
+ ["2027-01-16","Bilbao","Sala Azkena","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-bilbao-sala-azkena-sabado-16-454511"],
+ ["2027-01-22","Zaragoza","Sala López","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-zaragoza-sala-lopez-sabado-7-658147"],
+ ["2027-01-23","Valladolid","Sala Porta Caeli","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-valladolid-sala-porta-caeli-s-456150"],
+ ["2027-01-30","Málaga","Pop & Roll Circus","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-malaga-sala-circus-sabado-30-320036"],
+ ["2027-02-05","Albacete","Sala Clandestino","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-albacete-sala-clandestino-vie-164155"],
+ ["2027-02-06","Jaén","Sala La32","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-jaen-sala-la-32-sabado-6-de-f-566981"],
+ ["2027-02-19","Granada","Sala Aliatar","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-granada-sala-aliatar-viernes-289492"],
+ ["2027-02-20","Almería","Sala Berlín","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-almeria-sala-berlin-social-cl-523748"],
+ ["2027-03-05","León","Espacio Vías","https://www.ctickets.es/eventos/artisticket/9402-entradas-cientocero-tributo-a-supersubmarina"],
+ ["2027-03-06","Arévalo","Sala El Desván","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-arevalo-sala-el-desvan-sabado-175290","Ávila"],
+ ["2027-03-12","Badajoz","Sala Off Cultura","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-badajoz-off-cultura-viernes-1-343085"],
+ ["2027-03-13","Jerez","Sala La Bodega Skate","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-jerez-de-la-frontera-la-bodeg-824522","Cádiz"],
+ ["2027-03-18","Barcelona","Sala La Nau","https://tickets.oneboxtds.com/farotickets/select/3068617?hl=es-ES"],
+ ["2027-04-16","Alicante","Sala Stereo","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-alicante-sala-stereo-viernes-697982"],
+ ["2027-04-17","Valencia","Sala Jerusalem","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-valencia-sala-jerusalem-sabad-803947"],
+ ["2027-05-08","Madrid","Sala Mon","https://ticketfever.es/events/cientocero-tributo-a-supersubmarina"],
+ ["2027-05-14","Oviedo","Sala Tribeca Live","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-oviedo-sala-tribeca-live-vier-659837"],
+ ["2027-05-15","Santiago","Sala Capitol","https://salacapitol.entradas.plus/entradas/cientocero-capitol","A Coruña"],
+ ["2027-05-22","Murcia","Sala REM","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-murcia-sala-rem-sabado-22-de-989085"]
+];
+var SONGS = "Algo que sirva como luz|Viento de cara;Ana|Supersubmarina;Arena y sal|Viento de cara;Canción de guerra|Santacruz;Centro de atención|Electroviral;Cientocero|Cientocero;Cometas|Santacruz;De doce a doce y cuarto|Viento de cara;De las dudas infinitas|Santacruz;El baile de los muertos|Santacruz;El encuentro|Realimentación;El mañana|Viento de cara;Elástica galáctica|Cientocero;Eléctrico|Electroviral;Emperatriz|Realimentación;En mis venas|Santacruz;Enemigo yo|Viento de cara;Eres|Electroviral;Extrema debilidad|Viento de cara;Furia|Viento de cara;Hasta que sangren|Viento de cara;Hermética|Santacruz;Hogueras|Santacruz;Inestable|Viento de cara;Kevin McAlister|Realimentación;Ln Granada|Supersubmarina;Niebla|Electroviral;Ola de calor|Supersubmarina;Para dormir cuando no estés|Santacruz;Puta vida|Realimentación;Samurái|Viento de cara;Santacruz|Santacruz;Supersubmarina|Electroviral;Tecnicolor|Santacruz;Tu saeta|Santacruz;Viento de cara|Viento de cara;XXI|Realimentación"
+  .split(";").map(function(s,i){var p=s.split("|");return {id:i,t:p[0],a:p[1]};});
+var ALBUM = { // color de etiqueta y tinte de la foto por disco
+  "Supersubmarina":["#9fc3d9","rgba(80,140,180,.22)"],
+  "Cientocero":["#f2a23a","rgba(242,162,58,.18)"],
+  "Realimentación":["#e88e7e","rgba(220,90,70,.2)"],
+  "Electroviral":["#b9a3f0","rgba(130,90,230,.22)"],
+  "Santacruz":["#e9d48a","rgba(220,190,90,.18)"],
+  "Viento de cara":["#8fd0b4","rgba(70,170,130,.2)"]
+};
+var PHOTOS = ["img/escenario.jpg","img/directo-bn.jpg","img/voz.jpg","img/grupo.jpg"];
+var PROV = "A Coruña,Álava,Albacete,Alicante,Almería,Asturias,Ávila,Badajoz,Baleares,Barcelona,Burgos,Cáceres,Cádiz,Cantabria,Castellón,Ceuta,Ciudad Real,Córdoba,Cuenca,Girona,Granada,Guadalajara,Gipuzkoa,Huelva,Huesca,Jaén,La Rioja,Las Palmas,León,Lleida,Lugo,Madrid,Málaga,Melilla,Murcia,Navarra,Ourense,Palencia,Pontevedra,Salamanca,Santa Cruz de Tenerife,Segovia,Sevilla,Soria,Tarragona,Teruel,Toledo,Valencia,Valladolid,Bizkaia,Zamora,Zaragoza".split(",");
+
+var $ = function(s,r){return (r||document).querySelector(s)};
+var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+var MESL = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+var DIA = ["dom","lun","mar","mié","jue","vie","sáb"];
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+/* ---------- conciertos ---------- */
+var today = new Date(); today.setHours(0,0,0,0);
+var shows = SHOWS.map(function(s){var d=new Date(s[0]+"T12:00:00");return {d:d,city:s[1],venue:s[2],url:s[3],prov:s[4]||"",state:s[5]||""};})
+  .filter(function(s){return s.d>=today}).sort(function(a,b){return a.d-b.d});
+$$("[data-count]").forEach(function(el){el.textContent=shows.length});
+var next = shows[0];
+if(next){
+  $("#nextshow").href = next.url; $("#nextshow").target="_blank"; $("#nextshow").rel="noopener";
+  $("#nextshow").innerHTML = '<div class="d"><small>'+DIA[next.d.getDay()]+'</small><b>'+next.d.getDate()+'</b><small>'+MES[next.d.getMonth()]+'</small></div>'+
+    '<div class="i"><span class="eyebrow">Próximo concierto</span><strong>'+esc(next.city)+'</strong><span class="muted" style="font-size:14px">'+esc(next.venue)+'</span></div><div class="go">Entradas ↗</div>';
+}
+var tk = shows.map(function(s,i){return '<span'+(i===0?' class="s"':'')+'>'+esc(s.city)+'</span><span>·</span>'}).join("");
+$("#ticker").innerHTML = tk + tk;
+
+var month = "all";
+var months = [];
+shows.forEach(function(s){var k=s.d.getFullYear()+"-"+s.d.getMonth(); if(months.indexOf(k)<0) months.push(k)});
+function chipHTML(k,label,n){return '<button type="button" class="chip" data-m="'+k+'" aria-pressed="'+(month===k)+'">'+label+' <sup>'+n+'</sup></button>'}
+function renderChips(){
+  var h = chipHTML("all","Todas",shows.length);
+  months.forEach(function(k){var p=k.split("-"); h+=chipHTML(k,MESL[+p[1]],shows.filter(function(s){return s.d.getFullYear()+"-"+s.d.getMonth()===k}).length)});
+  $("#chips").innerHTML = h;
+}
+function renderShows(){
+  var q = $("#q").value.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  var list = shows.filter(function(s){
+    var k=s.d.getFullYear()+"-"+s.d.getMonth();
+    var txt=(s.city+" "+s.venue+" "+s.prov).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+    return (month==="all"||k===month) && (!q||txt.indexOf(q)>=0);
+  });
+  var h="", last="";
+  list.forEach(function(s){
+    var k=s.d.getFullYear()+"-"+s.d.getMonth();
+    if(k!==last){ h+='<li class="month">'+MESL[s.d.getMonth()]+' '+s.d.getFullYear()+'</li>'; last=k; }
+    var sold = s.state==="agotado";
+    h+='<li class="show'+(s===next?' next':'')+'">'+
+      '<div class="date"><b>'+String(s.d.getDate()).padStart(2,"0")+'</b><span>'+DIA[s.d.getDay()]+'<br>'+MES[s.d.getMonth()]+'</span></div>'+
+      '<div class="city">'+esc(s.city)+(s.prov?'<small>'+esc(s.prov)+'</small>':'')+'</div>'+
+      '<div class="venue"><small>Sala</small>'+esc(s.venue)+'</div>'+
+      (sold?'<span class="badge-tag muted">Agotado</span>':'<a class="btn '+(s===next||s.state==="ultimas"?'btn-lamp':'btn-ghost')+' buy" href="'+esc(s.url)+'" target="_blank" rel="noopener">'+(s.state==="ultimas"?'Últimas entradas':'Entradas')+' <span class="arrow">↗</span></a>')+
+    '</li>';
+  });
+  if(!list.length) h='<li class="empty">No hay fechas que coincidan. Apúntate a los avisos y te contamos cuando vayamos cerca.</li>';
+  $("#shows").innerHTML = h;
+}
+$("#chips").addEventListener("click",function(e){var b=e.target.closest(".chip"); if(!b) return; month=b.getAttribute("data-m"); renderChips(); renderShows();});
+$("#q").addEventListener("input",renderShows);
+renderChips(); renderShows();
+
+/* ---------- formularios home ---------- */
+function okMail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)}
+$("#nl-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  if(!okMail($("#nl-mail").value.trim())){ $("#nl-err").textContent="Revisa el correo: falta algo."; $("#nl-mail").focus(); return; }
+  var n=$("#nl-name").value.trim();
+  $("#nl-box").innerHTML='<div class="done">'+(n?esc(n)+', ya':'Ya')+' estás en primera fila. Te avisaremos de las nuevas fechas.</div>';
+});
+$("#hire-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var err="";
+  if(!$("#h-name").value.trim()) err="Falta tu nombre.";
+  else if(!okMail($("#h-mail").value.trim())) err="Revisa el email.";
+  else if(!$("#h-ok").checked) err="Marca la casilla de privacidad para poder responderte.";
+  $("#hire-err").textContent=err; if(err) return;
+  var t=$("input[name=tipo]:checked").value;
+  $("#hire-box").innerHTML='<div class="done" style="font-size:18px">Solicitud enviada ('+esc(t)+'). Te escribimos en menos de 48 horas.</div>';
+});
+$$(".copy").forEach(function(b){b.addEventListener("click",function(){
+  var v=b.getAttribute("data-copy");
+  var done=function(){b.textContent="Copiado";setTimeout(function(){b.textContent="Copiar"},1600)};
+  try{ navigator.clipboard.writeText(v).then(done,function(){selectText(b.previousElementSibling)}); }catch(x){ selectText(b.previousElementSibling); }
+})});
+function selectText(el){try{var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);}catch(x){}}
+
+/* ---------- cabecera / menú ---------- */
+var top=$("#top");
+function onScroll(){ top.classList.toggle("solid", scrollY>40 || current!=="inicio"); }
+addEventListener("scroll",onScroll,{passive:true});
+function setMenu(o){document.body.classList.toggle("menu-open",o);$("#burger").setAttribute("aria-expanded",o);$("#drawer").setAttribute("aria-hidden",!o);}
+$("#burger").addEventListener("click",function(){setMenu(!document.body.classList.contains("menu-open"))});
+$$("#drawer a").forEach(function(a){a.addEventListener("click",function(){setMenu(false)})});
+
+/* ---------- rutas ---------- */
+var VIEWS=["inicio","setlist","aviso-legal","privacidad"];
+var current="";
+function route(){
+  var h=(location.hash||"").replace("#","")||"inicio";
+  var view = VIEWS.indexOf(h)>=0 ? h : "inicio";
+  var target = VIEWS.indexOf(h)>=0 ? null : document.getElementById(h);
+  if(view!==current){
+    $$(".view").forEach(function(v){v.classList.toggle("on",v.getAttribute("data-view")===view)});
+    current=view;
+  }
+  if(!target) scrollTo({top:0,behavior:"instant"});
+  if(target) setTimeout(function(){target.scrollIntoView({behavior:"smooth"})},30);
+  $$(".nav a").forEach(function(a){
+    var n=a.getAttribute("data-nav");
+    if((view==="setlist"&&n==="setlist")||(view==="inicio"&&n===h)) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+  });
+  onScroll();
+}
+addEventListener("hashchange",route);
+// el logo siempre vuelve arriba de la home, aunque ya estemos en ella
+$$(".brand, .foot-brand").forEach(function(a){a.addEventListener("click",function(e){
+  e.preventDefault(); setMenu(false);
+  if(location.hash==="#inicio") route(); else location.hash="inicio";
+})});
+
+/* ---------- legal: índice ---------- */
+$$(".legal-grid").forEach(function(g,gi){
+  var toc=$("[data-toc]",g), h="";
+  $$(".prose h2",g).forEach(function(el,i){ el.id="l"+gi+"-"+i; h+='<a href="#'+el.id+'" data-jump="'+el.id+'">'+esc(el.textContent)+'</a>'; });
+  toc.innerHTML=h;
+  toc.addEventListener("click",function(e){var a=e.target.closest("a"); if(!a) return; e.preventDefault(); document.getElementById(a.getAttribute("data-jump")).scrollIntoView({behavior:"smooth"});});
+});
+
+/* ---------- cookies ---------- */
+var ck=$("#cookie"), seen=false;
+try{seen=localStorage.getItem("cc_ck")==="1"}catch(x){}
+if(!seen) ck.hidden=false;
+$$("[data-ck]").forEach(function(b){b.addEventListener("click",function(){ck.hidden=true;try{localStorage.setItem("cc_ck","1")}catch(x){}})});
+$("#open-cookies").addEventListener("click",function(e){e.preventDefault();ck.hidden=false});
+
+/* ================= SETLIST ================= */
+var sel=$("#r-prov"); PROV.slice().sort(function(a,b){return a.localeCompare(b,"es")}).forEach(function(p){var o=document.createElement("option");o.value=p;o.textContent=p;sel.appendChild(o)});
+var user={prov:""}, order=[], idx=0, votes=[], playing=null;
+function step(s){
+  var map={reg:"#p-reg",vote:"#p-vote",done:"#p-done"}, seq=["reg","vote","done"];
+  Object.keys(map).forEach(function(k){$(map[k]).hidden=(k!==s)});
+  $$("#steps li").forEach(function(li){var k=li.getAttribute("data-s");li.classList.toggle("on",k===s);li.classList.toggle("ok",seq.indexOf(k)<seq.indexOf(s));});
+}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function startVote(){ order=shuffle(SONGS.slice()); idx=0; votes=[]; renderDeck(); renderPicked(); step("vote"); }
+$("#reg-form").addEventListener("submit",function(e){
+  e.preventDefault(); var err="";
+  if(!okMail($("#r-mail").value.trim())) err="Escribe un email válido.";
+  else if(!$("#r-prov").value) err="Elige tu provincia.";
+  else if(!$("#r-ok").checked) err="Necesitamos que aceptes la política de privacidad.";
+  $("#reg-err").textContent=err; if(err) return;
+  user.prov=$("#r-prov").value; user.city=$("#r-city").value.trim();
+  startVote();
+});
+$("#skip").addEventListener("click",function(){user.prov="Murcia";startVote();});
+
+function cardHTML(s,i){
+  var al=ALBUM[s.a]||["#ece4da","transparent"];
+  return '<div class="card" data-i="'+i+'" style="--acol:'+al[0]+';--tint:'+al[1]+'">'+
+    '<div class="img"><img src="'+PHOTOS[s.id%PHOTOS.length]+'" alt="" draggable="false"></div>'+
+    '<div class="album"><em>'+esc(s.a)+'</em><span>'+String(i+1).padStart(2,"0")+'/'+order.length+'</span></div>'+
+    '<div class="stamp yes">Que suene</div><div class="stamp no">Paso</div>'+
+    '<div class="body"><h3>'+esc(s.t)+'</h3>'+
+    '<button class="play" type="button" data-play><span class="pb"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></span><span class="txt">Escuchar 20 s</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>'+
+  '</div>';
+}
+function renderDeck(){
+  var deck=$("#deck"), h="";
+  for(var k=Math.min(idx+2,order.length-1);k>=idx;k--) h+=cardHTML(order[k],k);
+  deck.innerHTML=h;
+  $$(".card",deck).forEach(function(c){var i=+c.getAttribute("data-i"); if(i===idx+1) c.classList.add("behind"); if(i===idx+2) c.classList.add("behind2");});
+  $("#count").textContent=Math.min(idx+1,order.length)+" / "+order.length;
+  $("#bar").style.transform="scaleX("+(idx/order.length)+")";
+  $("#b-undo").disabled=!votes.length;
+  var top=$('.card[data-i="'+idx+'"]',deck); if(top) bindDrag(top);
+}
+function renderPicked(){
+  var yes=votes.filter(function(v){return v.y});
+  $("#pk-n").textContent=yes.length; $("#yescount").textContent=yes.length+(yes.length===1?" elegida":" elegidas");
+  $("#picked").innerHTML = yes.length ? yes.map(function(v,i){return '<li><span>'+String(i+1).padStart(2,"0")+'</span><span>'+esc(v.s.t)+'</span><small>'+esc(v.s.a)+'</small></li>'}).join("") : '<li class="none">Las que marques con ♥ aparecerán aquí, en orden.</li>';
+  var pl=$("#picked"); pl.scrollTop=pl.scrollHeight;
+}
+function vote(y){
+  if(idx>=order.length) return;
+  var c=$('.card[data-i="'+idx+'"]');
+  stopPlay();
+  if(c){ c.style.transform="translateX("+(y?1:-1)*140+"%) rotate("+(y?18:-18)+"deg)"; c.style.opacity="0"; $(".stamp."+(y?"yes":"no"),c).style.opacity=1; }
+  votes.push({s:order[idx],y:y}); idx++;
+  renderPicked();
+  setTimeout(function(){ if(idx>=order.length) finish(); else renderDeck(); },260);
+}
+$("#b-yes").addEventListener("click",function(){vote(true)});
+$("#b-no").addEventListener("click",function(){vote(false)});
+$("#b-undo").addEventListener("click",function(){ if(!votes.length) return; votes.pop(); idx--; renderPicked(); renderDeck(); });
+$("#finish").addEventListener("click",finish);
+addEventListener("keydown",function(e){
+  if(current!=="setlist"||$("#p-vote").hidden) return;
+  if(/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if(e.key==="ArrowRight"){e.preventDefault();vote(true)} else if(e.key==="ArrowLeft"){e.preventDefault();vote(false)}
+});
+function stopPlay(){ if(playing){ playing.classList.remove("playing"); $(".txt",playing).textContent="Escuchar 20 s"; clearTimeout(playing._t); playing=null; } }
+$("#deck").addEventListener("click",function(e){
+  var b=e.target.closest("[data-play]"); if(!b) return;
+  if(playing===b){ stopPlay(); return; }
+  stopPlay(); playing=b; b.classList.add("playing"); $(".txt",b).textContent="Sonando · 0:20";
+  var t=20; b._t=setInterval(function(){t--; if(t<=0){stopPlay();return;} $(".txt",b).textContent="Sonando · 0:"+String(t).padStart(2,"0");},1000);
+});
+function bindDrag(card){
+  var sx=0, dx=0, down=false, id=null;
+  card.addEventListener("pointerdown",function(e){ if(e.target.closest("[data-play]")) return; down=true; sx=e.clientX; dx=0; id=e.pointerId; card.setPointerCapture(id); card.classList.add("dragging"); });
+  card.addEventListener("pointermove",function(e){ if(!down) return; dx=e.clientX-sx; card.style.transform="translateX("+dx+"px) rotate("+dx/18+"deg)";
+    $(".stamp.yes",card).style.opacity=Math.max(0,Math.min(1,dx/100)); $(".stamp.no",card).style.opacity=Math.max(0,Math.min(1,-dx/100)); });
+  function up(){ if(!down) return; down=false; card.classList.remove("dragging");
+    if(Math.abs(dx)>100) vote(dx>0); else { card.style.transform=""; $$(".stamp",card).forEach(function(s){s.style.opacity=0}); } }
+  card.addEventListener("pointerup",up); card.addEventListener("pointercancel",up);
+}
+function finish(){
+  stopPlay();
+  var yes=votes.filter(function(v){return v.y}).map(function(v){return v.s});
+  $("#paper-city").textContent = user.city || user.prov || "";
+  $("#paper-list").innerHTML = yes.length ? yes.map(function(s){return '<li>'+esc(s.t)+'</li>'}).join("") : '<li>Sorpréndeme</li>';
+  // ranking de ejemplo, con tus elegidas marcadas
+  var demo=[["Cientocero",94],["Ana",91],["Hermética",87],["Viento de cara",84],["Ola de calor",79],["Supersubmarina",76],["Canción de guerra",71],["En mis venas",66]];
+  var mine=yes.map(function(s){return s.t});
+  $("#rank").innerHTML=demo.map(function(r,i){return '<li class="'+(mine.indexOf(r[0])>=0?'mine':'')+'"><span>'+(i+1)+'</span><span>'+esc(r[0])+(mine.indexOf(r[0])>=0?' <span class="muted" style="font-size:12px">· también la elegiste</span>':'')+'</span><b>'+r[1]+'%</b><span class="m"><i style="width:'+r[1]+'%"></i></span></li>'}).join("");
+  step("done"); $("#p-done").scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("#again").addEventListener("click",startVote);
+$("#share").addEventListener("click",function(){
+  var yes=votes.filter(function(v){return v.y}).map(function(v,i){return (i+1)+". "+v.s.t});
+  var txt="Mi setlist para la gira de Cientocero:\n"+yes.join("\n")+"\n\nHaz el tuyo en cientocero.es/setlist";
+  var ok=function(){$("#toast").textContent="Copiado. Pégalo en tus stories o en el grupo."};
+  try{ navigator.clipboard.writeText(txt).then(ok,function(){$("#toast").textContent="No se pudo copiar automáticamente: selecciona la lista y cópiala."}); }catch(x){ $("#toast").textContent="No se pudo copiar automáticamente."; }
+});
+
+step("reg");
+route();
+})();
+</script>
+
+</body>
+</html>
