@@ -33,7 +33,7 @@ El estado puede ser `"ultimas"` (botón destacado "Últimas entradas") o `"agota
 ## Lo que es solo de maqueta
 
 - Los formularios (avisos, contratación y registro del setlist) muestran la confirmación, pero no envían datos.
-- En el setlist, el fragmento de audio está simulado. En la web real se conecta con los fragmentos de YouTube del plugin actual.
+- En el setlist, cada canción suena 20 s desde YouTube, con un reproductor oculto. Los vídeos y los segundos de inicio están en la lista `SONGS` de `index.html` (son los mismos que usa hoy cientocero.es/setlist). Para mover un fragmento al estribillo, cambia el último número de su línea.
 - El ranking "Lo más pedido" usa datos de ejemplo.
 - El enlace "Saltar registro" del setlist es para enseñar la maqueta rápido.
 

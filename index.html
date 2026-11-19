@@ -699,6 +699,7 @@ kbd{font:500 11px/1 var(--f-mono);padding:3px 6px;box-shadow:inset 0 0 0 1px var
       </div>
 
       <!-- paso 2 -->
+      <div id="yt-wrap" aria-hidden="true" style="position:fixed;left:-400px;top:0;width:200px;height:200px;opacity:0;pointer-events:none;overflow:hidden"><div id="yt-player"></div></div>
       <div class="panel vote" id="p-vote" hidden>
         <div class="deck-wrap">
           <div class="meta-row"><span id="count">1 / 37</span><span id="yescount">0 elegidas</span></div>
@@ -914,8 +915,45 @@ var SHOWS = [
  ["2027-05-15","Santiago","Sala Capitol","https://salacapitol.entradas.plus/entradas/cientocero-capitol","A Coruña"],
  ["2027-05-22","Murcia","Sala REM","https://www.enterticket.es/eventos/concierto-cientocero-tributo-supersubmarina-murcia-sala-rem-sabado-22-de-989085"]
 ];
-var SONGS = "Algo que sirva como luz|Viento de cara;Ana|Supersubmarina;Arena y sal|Viento de cara;Canción de guerra|Santacruz;Centro de atención|Electroviral;Cientocero|Cientocero;Cometas|Santacruz;De doce a doce y cuarto|Viento de cara;De las dudas infinitas|Santacruz;El baile de los muertos|Santacruz;El encuentro|Realimentación;El mañana|Viento de cara;Elástica galáctica|Cientocero;Eléctrico|Electroviral;Emperatriz|Realimentación;En mis venas|Santacruz;Enemigo yo|Viento de cara;Eres|Electroviral;Extrema debilidad|Viento de cara;Furia|Viento de cara;Hasta que sangren|Viento de cara;Hermética|Santacruz;Hogueras|Santacruz;Inestable|Viento de cara;Kevin McAlister|Realimentación;Ln Granada|Supersubmarina;Niebla|Electroviral;Ola de calor|Supersubmarina;Para dormir cuando no estés|Santacruz;Puta vida|Realimentación;Samurái|Viento de cara;Santacruz|Santacruz;Supersubmarina|Electroviral;Tecnicolor|Santacruz;Tu saeta|Santacruz;Viento de cara|Viento de cara;XXI|Realimentación"
-  .split(";").map(function(s,i){var p=s.split("|");return {id:i,t:p[0],a:p[1]};});
+var SONGS = [ // título | disco | vídeo de YouTube | segundo donde empieza el fragmento (dura 20 s)
+  "Algo que sirva como luz|Viento de cara|Q7UgBvKf-PQ|69",
+  "Ana|Supersubmarina|SP5Y2uuE0zE|56",
+  "Arena y sal|Viento de cara|BNWCJ7HuEA8|78",
+  "Canción de guerra|Santacruz|N_cEsZSQZ3M|68",
+  "Centro de atención|Electroviral|eQOZv85Q3ZI|96",
+  "Cientocero|Cientocero|gl3wzvS8IeA|48",
+  "Cometas|Santacruz|o97fhjGQnNc|125",
+  "De doce a doce y cuarto|Viento de cara|sQ_6yHYeyLM|52",
+  "De las dudas infinitas|Santacruz|rU-MMv13l-Q|123",
+  "El baile de los muertos|Santacruz|9lkQnBztD74|121",
+  "El encuentro|Realimentación|h5lPKlEPVEc|116",
+  "El mañana|Viento de cara|OfwqxGra4Zs|88",
+  "Elástica galáctica|Cientocero|rBZcWmdNAIU|56",
+  "Eléctrico|Electroviral|gcH9_sBPUi4|0",
+  "Emperatriz|Realimentación|fbu4PfvrlDA|57",
+  "En mis venas|Santacruz|qSkcpM0zDnU|136",
+  "Enemigo yo|Viento de cara|R-RMr4VRSTI|47",
+  "Eres|Electroviral|62N8OfurxrY|41",
+  "Extrema debilidad|Viento de cara|hDdDLrmt4Kw|95",
+  "Furia|Viento de cara|Xwp1oRSfcZU|56",
+  "Hasta que sangren|Viento de cara|bA8viri9VwY|3",
+  "Hermética|Santacruz|zGZHYKvpYcs|58",
+  "Hogueras|Santacruz|oR1FgzorS1g|80",
+  "Inestable|Viento de cara|EW3axp0gNms|67",
+  "Kevin McAlister|Realimentación|KrCpPgXaje8|44",
+  "Ln Granada|Supersubmarina|RZ24VRVPkk8|69",
+  "Niebla|Electroviral|ae6ebTuaTgs|9",
+  "Ola de calor|Supersubmarina|BGn7ujknoxc|54",
+  "Para dormir cuando no estés|Santacruz|S5thB0DRsOQ|80",
+  "Puta vida|Realimentación|6P6lcLw_iaQ|62",
+  "Samurái|Viento de cara|va4-m4r8zz0|58",
+  "Santacruz|Santacruz|cEf-vy-KEwQ|104",
+  "Supersubmarina|Electroviral|EV5mZ4Znjg0|76",
+  "Tecnicolor|Santacruz|fR06TdwoJQE|86",
+  "Tu saeta|Santacruz|R-34h__Vh0w|90",
+  "Viento de cara|Viento de cara|STrryhPiYfo|115",
+  "XXI|Realimentación|Tu98AF1bIqw|82"
+].map(function(s,i){var p=s.split("|");return {id:i,t:p[0],a:p[1],yt:p[2],st:+p[3]};});
 var ALBUM = { // color de etiqueta y tinte de la foto por disco
   "Supersubmarina":["#9fc3d9","rgba(80,140,180,.22)"],
   "Cientocero":["#f2a23a","rgba(242,162,58,.18)"],
@@ -1070,7 +1108,7 @@ function step(s){
   $$("#steps li").forEach(function(li){var k=li.getAttribute("data-s");li.classList.toggle("on",k===s);li.classList.toggle("ok",seq.indexOf(k)<seq.indexOf(s));});
 }
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-function startVote(){ order=shuffle(SONGS.slice()); idx=0; votes=[]; renderDeck(); renderPicked(); step("vote");
+function startVote(){ loadYT(); order=shuffle(SONGS.slice()); idx=0; votes=[]; renderDeck(); renderPicked(); step("vote");
   // ancla el paso 2: la baraja y los botones quedan enteros bajo la cabecera
   requestAnimationFrame(function(){ var r=$("#p-vote").getBoundingClientRect(); scrollTo({top:r.top+scrollY-84,behavior:"smooth"}); });
 }
@@ -1129,12 +1167,35 @@ addEventListener("keydown",function(e){
   if(/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if(e.key==="ArrowRight"){e.preventDefault();vote(true)} else if(e.key==="ArrowLeft"){e.preventDefault();vote(false)}
 });
-function stopPlay(){ if(playing){ playing.classList.remove("playing"); playing.setAttribute("aria-label","Escuchar fragmento"); $(".txt",playing).textContent="Escuchar 20 s"; clearTimeout(playing._t); playing=null; } }
+/* ---------- fragmentos de audio (YouTube) ---------- */
+// Un reproductor de YouTube oculto suena con el fragmento de cada canción.
+// Si YouTube no se puede cargar (por ejemplo en la vista previa de Claude), el botón simula la reproducción.
+var yt=null, ytReady=false, ytLoading=false;
+function loadYT(){
+  if(ytLoading) return; ytLoading=true;
+  window.onYouTubeIframeAPIReady=function(){
+    yt=new YT.Player("yt-player",{width:200,height:200,host:"https://www.youtube-nocookie.com",
+      playerVars:{playsinline:1,controls:0,disablekb:1,rel:0},
+      events:{onReady:function(){ytReady=true;}}});
+  };
+  var sc=document.createElement("script"); sc.src="https://www.youtube.com/iframe_api"; sc.async=true;
+  document.head.appendChild(sc);
+}
+function stopPlay(){
+  if(playing){ playing.classList.remove("playing"); playing.setAttribute("aria-label","Escuchar fragmento");
+    $(".txt",playing).textContent="Escuchar 20 s"; clearInterval(playing._t); playing=null; }
+  if(ytReady){ try{ yt.pauseVideo(); }catch(x){} }
+}
 $("#deck").addEventListener("click",function(e){
   var b=e.target.closest("[data-play]"); if(!b) return;
   if(playing===b){ stopPlay(); return; }
-  stopPlay(); playing=b; b.classList.add("playing"); b.setAttribute("aria-label","Pausar fragmento"); $(".txt",b).textContent="Sonando · 0:20";
-  var t=20; b._t=setInterval(function(){t--; if(t<=0){stopPlay();return;} $(".txt",b).textContent="Sonando · 0:"+String(t).padStart(2,"0");},1000);
+  stopPlay();
+  var song=order[+b.closest(".card").getAttribute("data-i")];
+  if(ytReady){ try{ yt.loadVideoById({videoId:song.yt,startSeconds:song.st,endSeconds:song.st+20}); yt.unMute(); yt.setVolume(100); }catch(x){} }
+  playing=b; b.classList.add("playing"); b.setAttribute("aria-label","Pausar fragmento");
+  $(".txt",b).textContent=(ytReady?"Sonando":"Vista previa sin sonido")+" · 0:20";
+  var t=20; b._t=setInterval(function(){t--; if(t<=0){stopPlay();return;}
+    $(".txt",b).textContent=(ytReady?"Sonando":"Sin sonido")+" · 0:"+String(t).padStart(2,"0");},1000);
 });
 function bindDrag(card){
   var sx=0, dx=0, down=false, id=null;
